@@ -108,7 +108,7 @@ SymCC有两个运行时：
 
 [SymQEMU](https://github.com/eurecom-s3/symqemu) 是SymCC的一个兄弟项目。
 它不是在编译时对目标进行检测，而是通过动态二进制翻译插入检测，建立在 [`QEMU`](https://www.qemu.org) 仿真栈之上。
-这意味着使用SymQEMU，任何（x86）二进制文件都可以被追踪，而不需要提前建立仪器。
+这意味着使用SymQEMU，任何（x86）二进制文件都可以被追踪，而不需要提前建立插桩。
 `symcc_runtime` 工具箱支持这种使用情况，用 `symcc_runtime` 构建的运行时也可用于SymQEMU。
 
 ## LibAFL中的混合型模糊处理
@@ -121,7 +121,7 @@ LibAFL资源库中包含了一个[混合模糊器实例](https://github.com/AFLp
 3. 构建模糊器。
 
 请注意，这些步骤的顺序是很重要的。
-例如，在用SymCC进行仪器分析之前，我们需要先准备好运行时间。
+例如，在用SymCC进行插桩分析之前，我们需要先准备好运行时间。
 
 ### 建立一个运行时
 使用`symcc_runtime`板块可以很容易地构建一个自定义运行时。
@@ -132,10 +132,10 @@ LibAFL资源库中包含了一个[混合模糊器实例](https://github.com/AFLp
 
 在LibAFL中，有两种主要的工具化方法来使用协程跟踪。
 
-* 使用**编译时**仪器化的目标与**SymCC**。
+* 使用**编译时**插桩化的目标与**SymCC**。
 这只有在目标的源代码可用，并且目标很容易使用SymCC编译器包装器构建的情况下才有效。
 * 使用**SymQEMU**在**运行时动态地检测目标。
-这避免了一个单独的仪器化目标与协程跟踪仪器化，而且不需要源代码。
+这避免了一个单独的插桩化目标与协程跟踪插桩化，而且不需要源代码。
 然而，应该注意的是，生成的表达式的 "质量 "可能会大大降低，而且SymQEMU通常比SymCC生成的表达式要多得多，而且明显更曲折。
 因此，建议尽可能使用SymCC而不是SymQEMU。
 
@@ -162,7 +162,7 @@ LibAFL资源库中包含了一个[混合模糊器实例](https://github.com/AFLp
 
 无论采用哪种方法，现在模糊器和被检测目标之间的接口应该是一致的。
 使用SymCC和SymQEMU的唯一区别应该是代表目标的二进制文件。
-在SymCC的情况下，它将是用仪器构建的二进制文件，而在SymQEMU的情况下，它将是模拟器的二进制文件（例如：`x86_64-linux-user/symqemu-x86_64`），后面是你的非仪器化的目标二进制文件和论据。
+在SymCC的情况下，它将是用插桩构建的二进制文件，而在SymQEMU的情况下，它将是模拟器的二进制文件（例如：`x86_64-linux-user/symqemu-x86_64`），后面是你的非插桩化的目标二进制文件和论据。
 
 你可以使用 [`CommandExecutor`](https://docs.rs/libafl/0.6.0/libafl/executors/command/struct.CommandExecutor.html) 来执行你的目标（[example](https://github.com/AFLplusplus/LibAFL/blob/main/fuzzers/libfuzzer_stb_image_concolic/fuzzer/src/main.rs#L244)）。
 在配置命令时，如果你的目标从文件中读取输入（而不是标准输入），请确保传递 `SYMCC_INPUT_FILE` 环境变量的输入文件路径。

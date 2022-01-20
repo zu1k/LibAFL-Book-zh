@@ -20,7 +20,7 @@ LibAFL资源库是由多个板块组成的。
 我们将这些模糊程序放在LibAFL资源库的[`./fuzzers`](https://github.com/AFLplusplus/LibAFL/tree/main/fuzzers)目录下。
 该目录包含一组不属于工作区的板条箱。
 
-这些示例模糊器中的每一个都使用了 LibAFL 的特定功能，有时与不同的仪器后端相结合（例如 [SanitizerCoverage](https://clang.llvm.org/docs/SanitizerCoverage.html), [Frida](https://frida.re/), ...）。
+这些示例模糊器中的每一个都使用了 LibAFL 的特定功能，有时与不同的插桩后端相结合（例如 [SanitizerCoverage](https://clang.llvm.org/docs/SanitizerCoverage.html), [Frida](https://frida.re/), ...）。
 
 你可以使用这些箱子作为例子，并作为具有类似功能集的自定义模糊器的骨架。
 每个模糊器的目录中都有一个`README.md`文件，描述模糊器及其特性。

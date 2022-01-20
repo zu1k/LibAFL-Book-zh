@@ -63,15 +63,15 @@ sugar crate 抽离了 LibAFL API 的大部分复杂性。
 
 ### libafl_frida
 
-这个库将LibAFL与Frida作为仪器分析的后端连接起来。
+这个库将LibAFL与Frida作为插桩分析的后端连接起来。
 
 有了这个库，你就可以对Linux/MacOS/Windows/Android上的目标进行覆盖率采集。
 
-此外，它还支持CmpLog和AddressSanitizer仪器和aarch64的运行时间。
+此外，它还支持CmpLog和AddressSanitizer插桩和aarch64的运行时间。
 
 ### libafl_qemu
 
 这个库将LibAFL与QEMU用户模式连接起来，以模糊ELF跨平台二进制文件。
 
 它可以在Linux上工作，并且可以在没有碰撞的情况下收集边缘覆盖率!
-它还支持大量的钩子和仪器选项。
+它还支持大量的钩子和插桩选项。
