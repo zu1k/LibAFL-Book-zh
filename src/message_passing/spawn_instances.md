@@ -24,7 +24,7 @@
 
 你可以使用`Launcher::builder`来创建一个产生多个节点的模糊器，所有这些节点都使用重新启动的事件管理器。
 
-看一个例子：
+看一个例子: 
 
 ```rust,ignore
     Launcher::builder()

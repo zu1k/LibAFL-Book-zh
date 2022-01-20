@@ -2,7 +2,7 @@
 
 <img align="right" src="https://github.com/AFLplusplus/Website/raw/master/static/logo_256x256.png" alt="AFL++ logo">
 
-*作者：Andrea Fioraldi 和 Dominik Maier*
+*作者: Andrea Fioraldi 和 Dominik Maier*
 
 欢迎来到 LibAFL，一个高级模糊测试库，本书是对该库的一个简单介绍。
 

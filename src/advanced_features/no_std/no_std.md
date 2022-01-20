@@ -2,7 +2,7 @@
 
 可以在 `no_std` 环境中使用LibAFL，例如自定义平台，如微控制器、内核、管理程序等等。
 
-你可以简单地将 LibAFL 添加到你的 `Cargo.toml` 文件中：
+你可以简单地将 LibAFL 添加到你的 `Cargo.toml` 文件中: 
 
 ```toml
 libafl = { path = "path/to/libafl/", default-features = false}

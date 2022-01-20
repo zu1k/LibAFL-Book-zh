@@ -26,7 +26,7 @@
 
 接下来，我们来看看`ForkserverExecutor`。在这种情况下，是`afl-cc`（来自AFLplus/AFLplus）在编译线束代码，因此，我们不能再使用`EDGES_MAP`。希望我们有[_a way_](https://github.com/AFLplusplus/AFLplusplus/blob/2e15661f184c77ac1fbb6f868c894e946cbb7f17/instrumentation/afl-compiler-rt.o.c#L270)告诉forkserver哪张地图来记录覆盖率。
 
-你可以从forkserver的例子中看到：
+你可以从forkserver的例子中看到: 
 
 ```rust,ignore
 //Coverage map shared between observer and executor
