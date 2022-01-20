@@ -166,7 +166,7 @@ edition = &quot;2018&quot;
 <p>由于我们要对Rust代码进行模糊处理，我们希望恐慌不会简单地导致程序退出，而是引发一个 <code>abort</code> ，然后可以被模糊器捕获。
 为此，我们在 <a href="https://doc.rust-lang.org/cargo/reference/profiles.html">profiles</a> 中指定 <code>panic = &quot;abort&quot;</code> 。</p>
 <p>除了这个设置之外，我们还为在发布模式下的编译添加了一些优化标志。</p>
-<p>最终的 <code>Cargo.toml</code> 应该类似于下面的样子：</p>
+<p>最终的 <code>Cargo.toml</code> 应该类似于下面的样子: </p>
 <pre><code class="language-toml">[package]
 name = &quot;baby_fuzzer&quot;
 version = &quot;0.1.0&quot;
@@ -190,7 +190,7 @@ debug = true
 </code></pre>
 <h2 id="被测试的函数"><a class="header" href="#被测试的函数">被测试的函数</a></h2>
 <p>打开 <code>src/main.rs</code> ，我们有一个空的 <code>main</code> 函数。
-首先，我们创建一个我们想要模糊处理的闭包。它接受一个缓冲区作为输入，如果它以 <code>abc</code> 开头，就会引起恐慌：</p>
+首先，我们创建一个我们想要模糊处理的闭包。它接受一个缓冲区作为输入，如果它以 <code>abc</code> 开头，就会引起恐慌: </p>
 <pre><pre class="playground"><code class="language-rust">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {

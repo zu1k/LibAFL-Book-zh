@@ -175,7 +175,7 @@ The broker can also intercept and filter the messages it receives instead of for
 在<code>std</code>构建中，经纪人会在循环后睡眠几毫秒，因为我们不需要消息立即到达。
 在经纪人收到来自客户端N的新消息后，（<code>clientN_out-&gt;current_id != last_message-&gt;message_id</code>）经纪人会将消息内容复制到自己的广播共享内存。</p>
 <p>客户端定期地，例如在完成<code>n'次突变后，通过检查是否有新的消息进入（</code>current_broadcast_map-&gt;current_id != last_message-&gt;message_id<code>）。 虽然经纪人使用相同的EOP机制为其传出的地图映射新的</code>ShMem'，但它从不解除旧页面的映射。
-这种额外的内存开销有一个很好的目的：通过保留所有的广播页面，我们确保新的客户可以在以后的时间点加入到模糊测试活动中来
+这种额外的内存开销有一个很好的目的: 通过保留所有的广播页面，我们确保新的客户可以在以后的时间点加入到模糊测试活动中来
 他们只需要从头到尾重新阅读所有广播的信息。</p>
 <p>所以传出的消息在传出的广播<code>Shmem</code>上是这样流动的。</p>
 <pre><code class="language-text">[broker]

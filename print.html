@@ -137,7 +137,7 @@
                     <main>
                         <h1 id="libafl模糊测试库"><a class="header" href="#libafl模糊测试库">LibAFL模糊测试库</a></h1>
 <img align="right" src="https://github.com/AFLplusplus/Website/raw/master/static/logo_256x256.png" alt="AFL++ logo">
-<p><em>作者：Andrea Fioraldi 和 Dominik Maier</em></p>
+<p><em>作者: Andrea Fioraldi 和 Dominik Maier</em></p>
 <p>欢迎来到 LibAFL，一个高级模糊测试库，本书是对该库的一个简单介绍。</p>
 <p>此版本的 <code>LibAFL Book</code> 是与该库的 <code>1.0</code> 测试版结合在一起的。</p>
 <p>本文件仍在进行中，并不完整。这里解释的结构和概念在未来的修订中可能会有变化，因为 LibAFL 的结构本身也会有变化。</p>
@@ -155,130 +155,120 @@ LibAFL是用Rust编写的，它可以帮助你开发一个为你的特定需求�
 无论是一个特定的目标，一个特定的插桩后端，还是一个自定义的突变器，你都可以利用现有的碎片来制作你能想到的最快、最有效的模糊器。</p>
 <h2 id="为什么使用-libafl"><a class="header" href="#为什么使用-libafl">为什么使用 LibAFL?</a></h2>
 <p>LibAFL为你提供了许多现成的模糊器的优点，同时又是完全可定制的。</p>
-<p>目前的一些亮点功能包括：</p>
+<p>目前的一些亮点功能包括: </p>
 <ul>
-<li><strong>多平台</strong>：LibAFL 几乎可以在任何 Rust编译器 支持的地平台工作，我们已经在 <em>Windows</em>、<em>Android</em>、<em>MacOS</em> 和 <em>Linux</em> 上使用，在 <em>x86_64</em>、<em>aarch64</em> 上使用</li>
-<li><strong>移植性</strong>：LibAFL 可以在 <code>no_std</code> 模式下构建，这意味着它不需要依赖特定的操作系统。通过定义一个分配器和映射页面的方法，你可以把LibAFL注入到其他目标平台，如嵌入式设备、管理程序，甚至可能是WebAssembly</li>
-<li><strong>适应性</strong>：鉴于多年来对 <em>AFLplusplus</em> 的开发经验和我们对模糊测试的学术背景，我们可以将最近的模糊测试发展趋势融入到LibAFL的设计中，使其面向未来。
+<li><strong>多平台</strong>: LibAFL 几乎可以在任何 Rust编译器 支持的地平台工作，我们已经在 <em>Windows</em>、<em>Android</em>、<em>MacOS</em> 和 <em>Linux</em> 上使用，在 <em>x86_64</em>、<em>aarch64</em> 上使用</li>
+<li><strong>移植性</strong>: LibAFL 可以在 <code>no_std</code> 模式下构建，这意味着它不需要依赖特定的操作系统。通过定义一个分配器和映射页面的方法，你可以把LibAFL注入到其他目标平台，如嵌入式设备、管理程序，甚至可能是WebAssembly</li>
+<li><strong>适应性</strong>: 鉴于多年来对 <em>AFLplusplus</em> 的开发经验和我们对模糊测试的学术背景，我们可以将最近的模糊测试发展趋势融入到LibAFL的设计中，使其面向未来。
 举个例子，相对于老式的模糊器， <code>BytesInput</code> 只是输入的潜在形式之一，你可以自由地使用和修改抽象语法树，以实现结构化的模糊处理。</li>
-<li><strong>扩展性</strong>：作为LibAFL的一部分，我们开发了 <code>低水平消息传递</code> ，简称 <code>LLMP</code> ，它允许LibAFL在核心上几乎线性扩展。也就是说，如果你选择使用这个功能--毕竟这是你的模糊器。
+<li><strong>扩展性</strong>: 作为LibAFL的一部分，我们开发了 <code>低水平消息传递</code> ，简称 <code>LLMP</code> ，它允许LibAFL在核心上几乎线性扩展。也就是说，如果你选择使用这个功能--毕竟这是你的模糊器。
 使用LLMP的 <code>broker2broker</code> 功能，通过TCP扩展到多台机器也是可能的</li>
-<li><strong>快速</strong>：我们在编译时尽一切努力，使运行时的开销尽可能小</li>
-<li><strong>任何目标</strong>：我们支持纯二进制模式，如 <strong>QEMU-Mode</strong>、<strong>Frida-Mode</strong>、<strong>ASAN</strong>、<strong>CmpLog</strong>，以及基于资源的插桩的多个编译通道。当然，我们也支持自定义插桩，正如你在基于谷歌Atheris的Python例子中看到的那样</li>
-<li><strong>可用性</strong>：这个问题由你来决定。尽情发挥吧!</li>
+<li><strong>快速</strong>: 我们在编译时尽一切努力，使运行时的开销尽可能小</li>
+<li><strong>任何目标</strong>: 我们支持纯二进制模式，如 <strong>QEMU-Mode</strong>、<strong>Frida-Mode</strong>、<strong>ASAN</strong>、<strong>CmpLog</strong>，以及基于资源的插桩的多个编译通道。当然，我们也支持自定义插桩，正如你在基于谷歌Atheris的Python例子中看到的那样</li>
+<li><strong>可用性</strong>: 这个问题由你来决定。尽情发挥吧!</li>
 </ul>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="入门"><a class="header" href="#入门">入门</a></h1>
-<p>要开始使用LibAFL，有一些初始步骤要做。
-在本章中，我们将讨论如何使用Rust的<code>cargo</code>命令下载和构建LibAFL。
-我们还描述了LibAFL的组件结构，即所谓的crate，以及每个单独crate的目的。</p>
+<p>要开始使用LibAFL，有一些初始步骤要做。</p>
+<p>在本章中，我们将讨论如何使用 Rust 的 <code>cargo</code> 命令下载和构建 LibAFL。
+我们还描述了LibAFL的组件结构，即所谓的 <code>crate</code> ，以及每个单独 <code>crate</code> 的目的。</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="设置"><a class="header" href="#设置">设置</a></h1>
-<p>第一步是下载LibAFL和所有没有被<code>cargo</code>自动安装的依赖项。</p>
+<p>第一步是下载 LibAFL 和所有没有被 <code>cargo</code> 自动安装的依赖项。</p>
 <blockquote>
 <h3 id="命令行符号"><a class="header" href="#命令行符号">命令行符号</a></h3>
 <p>在本章和全书中，我们展示了一些终端内容。终端输入的行都以<code>$</code>开头，但你不需要输入<code>$</code>字符；
 它表示每个命令的开始。不以&quot;$&quot;开头的行通常显示的是 &gt; 前一条命令的输出。
 此外，PowerShell特定的例子将使用<code>&gt;</code>而不是<code>$</code>。</p>
 </blockquote>
-<p>虽然技术上你不需要安装LibAFL，而是可以直接使用crates.io的版本，但我们还是建议下载或克隆GitHub版本。
-这样你就可以得到示例模糊器、额外的实用程序和最新的补丁。
-最简单的方法是使用 <code>git</code>。</p>
+<p>虽然技术上你不需要安装 LibAFL，而是可以直接使用 crates.io 的版本，但我们还是建议下载或克隆 GitHub版本，这样你就可以得到示例模糊器、额外的实用程序和最新的补丁。</p>
+<p>最简单的方法是使用 <code>git</code>: </p>
 <pre><code class="language-sh">$ git clone git@github.com:AFLplusplus/LibAFL.git
 </code></pre>
-<p>你也可以在类似UNIX的机器上，下载一个压缩的档案，然后用以下方法解压。</p>
+<p>你也可以在 类UNIX 的机器上，下载一个压缩的存档，然后用以下方法解压:</p>
 <pre><code class="language-sh">$ wget https://github.com/AFLplusplus/LibAFL/archive/main.tar.gz
 $ tar xvf LibAFL-main.tar.gz
 $ rm LibAFL-main.tar.gz
 $ ls LibAFL-main # this is the extracted folder
 </code></pre>
-<h2 id="clang安装"><a class="header" href="#clang安装">Clang安装</a></h2>
-<p>LibAFL的外部依赖之一是Clang C/C++编译器。
-虽然大部分代码都是纯Rust语言，但我们仍然需要一个C语言编译器，因为稳定的Rust仍然不支持LibAFL某些部分可能需要的功能，比如弱连接，以及LLVM内置链接。
+<h2 id="安装-clang"><a class="header" href="#安装-clang">安装 Clang</a></h2>
+<p>LibAFL 的外部依赖之一是 Clang C/C++ 编译器。
+虽然大部分代码都是纯Rust语言编写，但我们仍然需要一个C语言编译器，因为稳定的Rust仍然不支持LibAFL某些部分可能需要的功能，比如弱连接以及LLVM内置链接。
 对于这些部分，我们使用C语言来向我们的Rust代码库暴露缺少的功能。</p>
-<p>此外，如果你想对C/C++应用程序进行源码级模糊测试。
-你可能需要Clang及其插桩选项来编译被测程序。
-被测试的程序。</p>
-<p>在Linux上，你可以使用你的发行版的软件包管理器来获取Clang。
-但这些软件包并不总是最新的。
-相反，我们建议使用来自LLVM的Debian/Ubuntu预编译包，这些包可以通过他们的 <a href="https://apt.llvm.org/">官方仓库</a> 获得。</p>
-<p>对于Microsoft Windows，你可以下载LLVM定期生成的 <a href="https://llvm.org/builds/">安装包</a>。</p>
-<p>尽管Clang是MacOS上的默认C编译器，但我们不鼓励使用苹果公司提供的编译器，而鼓励使用
-从 <a href="https://brew.sh/">Homebrew</a> 安装，使用 <code>brew install llvm</code>。</p>
-<p>另外，你也可以下载并构建LLVM源码树--包括Clang--按照以下步骤进行
-<a href="https://clang.llvm.org/get_started.html">这里</a> 解释。</p>
-<h2 id="rust的安装"><a class="header" href="#rust的安装">Rust的安装</a></h2>
-<p>如果你没有安装Rust，你可以很容易地按照 <a href="https://www.rust-lang.org/tools/install">这里</a> 描述的步骤来安装它。
-在任何支持的系统上安装它。
-请注意，Linux发行版中的Rust版本可能已经过时，LibAFL总是以最新的 &quot;稳定 &quot;版本为目标，可通过 <code>rustup upgrade</code> 获得。</p>
-<p>我们建议先安装Clang和LLVM。</p>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="构建libafl"><a class="header" href="#构建libafl">构建LibAFL</a></h1>
-<p>LibAFL和大多数Rust项目一样，可以使用<code>cargo</code>从项目的根目录下构建。</p>
+<p>此外，如果你想对 C/C++ 应用程序进行源码级模糊测试，你可能需要Clang及其插桩选项来编译被测程序。</p>
+<p>在Linux上，你可以使用你的发行版的软件包管理器来获取Clang，但这些软件包并不总是最新的。
+相反，我们建议使用来自 LLVM 的 Debian/Ubuntu 预编译包，这些包可以通过他们的 <a href="https://apt.llvm.org/">官方仓库</a> 获得。</p>
+<p>对于Microsoft Windows，你可以下载 LLVM 定期生成的 <a href="https://llvm.org/builds/">安装包</a>。</p>
+<p>尽管 Clang 是 MacOS 上的默认C编译器，但我们不鼓励使用苹果公司提供的编译器，而鼓励使用从 <a href="https://brew.sh/">Homebrew</a> 安装的版本: <code>brew install llvm</code>。</p>
+<p>另外，你也可以下载LLVM源码并自行构建，按照 <a href="https://clang.llvm.org/get_started.html">这里</a> 的方法。</p>
+<h2 id="安装-rust"><a class="header" href="#安装-rust">安装 Rust</a></h2>
+<p>如果你没有安装 Rust，你可以很容易地按照 <a href="https://www.rust-lang.org/tools/install">这里</a> 描述的步骤来安装它。</p>
+<p>请注意，Linux 发行版中的 Rust 版本可能已经过时，LibAFL 总是使用最新的<strong>稳定</strong>版本，可通过 <code>rustup upgrade</code> 获得。</p>
+<p>我们建议先安装 Clang 和 LLVM，然后再安装 Rust。</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="构建-libafl"><a class="header" href="#构建-libafl">构建 LibAFL</a></h1>
+<p>LibAFL 和大多数 Rust 项目一样，可以使用 <code>cargo</code> 从项目的根目录下构建: </p>
 <pre><code class="language-sh">$ cargo build --release
 </code></pre>
-<p>请注意，<code>--release</code>标志在开发中是可选的，但你需要添加它才能以适当的速度进行模糊测试。
-对于Debug构建来说，10倍以上的减速并不罕见。</p>
+<p>请注意，<code>--release</code>在开发测试时是可选项，但使用Debug版本进行模糊测试可能会有10倍以上的性能损失，正式使用时你需要添加 <code>--release</code> 标志才能获得正常的速度。</p>
 <p>LibAFL资源库是由多个板块组成的。
-顶层的<code>Cargo.toml</code>](https://github.com/AFLplusplus/LibAFL/blob/main/Cargo.toml)是将这些板块分组的工作区文件。
-从根目录调用<code>cargo build</code>将编译工作区中的所有板块。</p>
+顶层的 <a href="https://github.com/AFLplusplus/LibAFL/blob/main/Cargo.toml"><code>Cargo.toml</code></a> 是将这些板块分组的工作区文件。
+从根目录调用 <code>cargo build</code> 将编译工作区中的所有板块。</p>
 <h2 id="构建示例模糊器"><a class="header" href="#构建示例模糊器">构建示例模糊器</a></h2>
-<p>对于有经验的rustaceans来说，最好的起点是阅读并改编示例模糊器。</p>
-<p>我们将这些模糊程序放在LibAFL资源库的<a href="https://github.com/AFLplusplus/LibAFL/tree/main/fuzzers"><code>./fuzzers</code></a>目录下。
-该目录包含一组不属于工作区的板条箱。</p>
+<p>对于有经验的 rustaceans 来说，最好的起点是阅读并改编示例模糊器。</p>
+<p>我们将这些模糊程序放在 LibAFL 资源库的 <a href="https://github.com/AFLplusplus/LibAFL/tree/main/fuzzers"><code>./fuzzers</code></a> 目录下，该目录包含一组不属于工作区的crates。</p>
 <p>这些示例模糊器中的每一个都使用了 LibAFL 的特定功能，有时与不同的插桩后端相结合（例如 <a href="https://clang.llvm.org/docs/SanitizerCoverage.html">SanitizerCoverage</a>, <a href="https://frida.re/">Frida</a>, ...）。</p>
-<p>你可以使用这些箱子作为例子，并作为具有类似功能集的自定义模糊器的骨架。
-每个模糊器的目录中都有一个<code>README.md</code>文件，描述模糊器及其特性。</p>
-<p>要建立一个例子的模糊器，你必须从其各自的文件夹（<code>fuzzers/[FUZZER_NAME]</code>）调用<code>cargo build --release</code>。</p>
+<p>你可以使用这些 crates 作为例子，并作为具有类似功能集的自定义模糊器的骨架。
+每个模糊器的目录中都有一个 <code>README.md</code> 文件，描述模糊器及其特性。</p>
+<p>要建立一个例子的模糊器，你必须从其各自的文件夹（<code>fuzzers/[FUZZER_NAME]</code>）调用 <code>cargo build --release</code>。</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="crates"><a class="header" href="#crates">Crates</a></h1>
-<p>LibAFL是由不同的crate组成的。
-crate是Rust的Cargo构建系统中的一个单独的库，你可以通过把它添加到你的项目的<code>Cargo.toml</code>中来使用，比如：</p>
+<p>LibAFL 是由不同的 crate 组成的。
+crate 是 Rust 的 Cargo 构建系统中的一个独立的库，你可以通过把它添加到你的项目的 <code>Cargo.toml</code> 文件中来使用，比如: </p>
 <pre><code class="language-toml">[dependencies]
 libafl = { version = &quot;*&quot; }
 </code></pre>
-<p>对于 LibAFL 来说，每个 crate 都有其独立的用途，用户可能不需要在其项目中使用所有的 crate。
-按照项目根目录下的文件夹的命名惯例，它们是。</p>
+<p>对于 LibAFL 来说，每个 crate 都有其独立的用途，用户可能不需要在其项目中使用所有的 crate。</p>
+<p>按照项目根目录下的文件夹的命名惯例，它们是:</p>
 <h3 id="libafl"><a class="header" href="#libafl"><a href="https://github.com/AFLplusplus/LibAFL/tree/main/libafl"><code>libafl</code></a></a></h3>
-<p>这是个主箱，包含了构建模糊器所需的所有组件。</p>
-<p>这个板块有许多特性标志，可以启用和禁用LibAFL的某些方面。
-这些特性可以在 <a href="https://github.com/AFLplusplus/LibAFL/blob/main/libafl/Cargo.toml">LibAFL's <code>Cargo.toml</code></a> &quot;<code>[特性]</code>&quot;下找到，并且通常在那里有注释说明。
+<p>这是 主crate，包含了构建模糊器所需的所有组件。</p>
+<p>这个板块有许多 Feature标志，可以启用和禁用 LibAFL 的某些方面。
+这些特性可以在 <a href="https://github.com/AFLplusplus/LibAFL/blob/main/libafl/Cargo.toml">LibAFL's <code>Cargo.toml</code></a> &quot;<code>[features]</code>&quot;下找到，并且通常在那里有注释说明。
 一些值得注意的特性是。</p>
 <ul>
-<li><code>std</code>启用代码中使用Rust标准库的部分。如果没有这个标志，LibAFL是<code>no_std</code>兼容的。这将禁用一系列功能，但允许我们在嵌入式环境中使用LibAFL，阅读<a href="getting_started/../advanced_features/no_std/no_std.html">no_std`部分</a>了解更多细节。</li>
-<li><code>derive</code>可以使用libafl的libafl_derive中定义的<code>derive(...)</code>宏。</li>
-<li><code>rand_trait</code>允许你在需要与Rust的<a href="https://crates.io/crates/rand"><code>rand</code> crate</a>兼容的地方使用LibAFL的非常快速（<em>但不安全！</em>）的随机数发生器。</li>
-<li><code>llmp_bind_public</code>使LibAFL的LLMP绑定到一个公共的TCP端口，其他的fuzzers节点可以通过这个端口与这个实例通信。</li>
-<li><code>introspection</code>为LibAFL添加性能统计。</li>
+<li><code>std</code>: 启用代码中使用Rust标准库的部分。如果没有这个标志，LibAFL是 <code>no_std</code> 兼容的，这将禁用一系列功能，但允许我们在嵌入式环境中使用LibAFL，阅读 <a href="getting_started/../advanced_features/no_std/no_std.html">no_std`部分</a> 了解更多细节</li>
+<li><code>derive</code>: 可以使用 LibAFL 的 libafl_derive 中定义的 <code>derive(...)</code> 宏</li>
+<li><code>rand_trait</code>: 允许你在需要与Rust的 <a href="https://crates.io/crates/rand"><code>rand</code> crate</a> 兼容的地方使用LibAFL的非常快速（<em>但不安全！</em>）的随机数发生器</li>
+<li><code>llmp_bind_public</code>: 使 LibAFL 的 LLMP 绑定到一个公共的TCP端口，其他的fuzzers节点可以通过这个端口与这个实例通信</li>
+<li><code>introspection</code>: 为LibAFL添加性能统计</li>
 </ul>
-<p>你可以通过在你的<code>Cargo.toml</code>中为LibAFL使用<code>features = [&quot;feature1&quot;, &quot;feature2&quot;, ...]</code>来选择特性。
-在这个列表中，默认情况下，<code>std</code>、<code>derive</code>和<code>rand_trait</code>已经被设置。
-你可以通过在你的<code>Cargo.toml</code>中设置<code>default-features = false</code>来选择禁用它们。</p>
+<p>你可以通过在你的 <code>Cargo.toml</code> 中为 LibAFL 使用 <code>features = [&quot;feature1&quot;, &quot;feature2&quot;, ...]</code> 来选择特性。
+在这个列表中，默认情况下，<code>std</code>、<code>derive</code> 和 <code>rand_trait</code> 已经被设置。你可以通过在你的 <code>Cargo.toml</code> 中设置 <code>default-features = false</code> 来选择禁用它们。</p>
 <h3 id="libafl_sugar"><a class="header" href="#libafl_sugar">libafl_sugar</a></h3>
 <p>sugar crate 抽离了 LibAFL API 的大部分复杂性。
 它的目标不是高灵活性，而是高层次和易于使用。
 它不像从每个单独的组件中缝合你的模糊器那样灵活，但允许你用最少的代码行建立一个模糊器。
 要看它的运行情况，请看一下<a href="https://github.com/AFLplusplus/LibAFL/tree/main/fuzzers/libfuzzer_stb_image_sugar"><code>libfuzzer_stb_image_sugar</code>示例模糊器</a>。</p>
 <h3 id="libafl_derive"><a class="header" href="#libafl_derive">libafl_derive</a></h3>
-<p>这是一个与<code>libafl</code>板块配对的proc-macro板块。</p>
-<p>目前，它只是暴露了<code>derive(SerdeAny)</code>宏，可以用来定义Metadata结构，详见关于<a href="getting_started/../design/metadata.html">Metadata</a>的部分。</p>
+<p>这是一个与 <code>libafl</code> crate 配对的 proc-macro 板块。</p>
+<p>目前，它只是暴露了 <code>derive(SerdeAny)</code> 宏，可以用来定义 Metadata 结构，详见关于 <a href="getting_started/../design/metadata.html">Metadata</a> 的部分。</p>
 <h3 id="libafl_targets"><a class="header" href="#libafl_targets">libafl_targets</a></h3>
 <p>这个板块提供了与目标交互的代码，并对其进行检测。
 为了在编译时启用和禁用功能，使用功能标志来启用和禁用这些功能。</p>
-<p>目前，支持的标志有</p>
+<p>目前，支持的标志有：</p>
 <ul>
-<li><code>pcguard_edges</code>定义了SanitizerCoverage trace-pc-guard钩子来跟踪地图中的执行边。</li>
-<li><code>pcguard_hitcounts</code>定义了SanitizerCoverage追踪-pc-guard的钩子，以追踪地图中已执行的边和hitcounts（如AFL）。</li>
-<li><code>libfuzzer</code>提供了一个与libFuzzer风格线束的兼容层。</li>
-<li><code>value_profile</code>定义了SanitizerCoverage trace-cmp钩子，以跟踪地图中每个比较的匹配位。</li>
+<li><code>pcguard_edges</code>: 定义了 SanitizerCoverage trace-pc-guard 钩子来跟踪地图中的执行边</li>
+<li><code>pcguard_hitcounts</code>: 定义了 SanitizerCoverage trace-pc-guard 钩子，以追踪地图中已执行的边和hitcounts（如AFL）</li>
+<li><code>libfuzzer</code>: 提供了一个 libFuzzer 风格的兼容层</li>
+<li><code>value_profile</code>: 定义了 SanitizerCoverage trace-cmp 钩子，以跟踪地图中每个比较的匹配位</li>
 </ul>
 <h3 id="libafl_cc"><a class="header" href="#libafl_cc">libafl_cc</a></h3>
 <p>这是一个提供实用程序的库，用于包装编译器和创建源码级模糊器。</p>
 <p>目前，只有Clang编译器被支持。
 为了更深入地了解它，请看一下教程和例子。</p>
 <h3 id="libafl_frida"><a class="header" href="#libafl_frida">libafl_frida</a></h3>
-<p>这个库将LibAFL与Frida作为插桩分析的后端连接起来。</p>
-<p>有了这个库，你就可以对Linux/MacOS/Windows/Android上的目标进行覆盖率采集。</p>
-<p>此外，它还支持CmpLog和AddressSanitizer插桩和aarch64的运行时间。</p>
+<p>这个库将 LibAFL 与 Frida 作为插桩分析的后端连接起来。</p>
+<p>有了这个库，你就可以对 Linux/MacOS/Windows/Android 上的目标进行覆盖率采集。</p>
+<p>此外，它还支持 CmpLog 和 AddressSanitizer 插桩和 aarch64 的运行时。</p>
 <h3 id="libafl_qemu"><a class="header" href="#libafl_qemu">libafl_qemu</a></h3>
-<p>这个库将LibAFL与QEMU用户模式连接起来，以模糊ELF跨平台二进制文件。</p>
-<p>它可以在Linux上工作，并且可以在没有碰撞的情况下收集边缘覆盖率!
+<p>这个库将 LibAFL 与 QEMU 用户模式连接起来，以模糊 ELF 跨平台二进制文件。</p>
+<p>它可以在 Linux 上工作，并且可以在没有碰撞的情况下收集边缘覆盖率!
 它还支持大量的钩子和插桩选项。</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="一个简单的libafl模糊器"><a class="header" href="#一个简单的libafl模糊器">一个简单的LibAFL模糊器</a></h1>
 <p>本章讨论了一个使用LibAFL API的天真无邪的模糊器。
@@ -312,7 +302,7 @@ edition = &quot;2018&quot;
 <p>由于我们要对Rust代码进行模糊处理，我们希望恐慌不会简单地导致程序退出，而是引发一个 <code>abort</code> ，然后可以被模糊器捕获。
 为此，我们在 <a href="https://doc.rust-lang.org/cargo/reference/profiles.html">profiles</a> 中指定 <code>panic = &quot;abort&quot;</code> 。</p>
 <p>除了这个设置之外，我们还为在发布模式下的编译添加了一些优化标志。</p>
-<p>最终的 <code>Cargo.toml</code> 应该类似于下面的样子：</p>
+<p>最终的 <code>Cargo.toml</code> 应该类似于下面的样子: </p>
 <pre><code class="language-toml">[package]
 name = &quot;baby_fuzzer&quot;
 version = &quot;0.1.0&quot;
@@ -336,7 +326,7 @@ debug = true
 </code></pre>
 <h2 id="被测试的函数"><a class="header" href="#被测试的函数">被测试的函数</a></h2>
 <p>打开 <code>src/main.rs</code> ，我们有一个空的 <code>main</code> 函数。
-首先，我们创建一个我们想要模糊处理的闭包。它接受一个缓冲区作为输入，如果它以 <code>abc</code> 开头，就会引起恐慌：</p>
+首先，我们创建一个我们想要模糊处理的闭包。它接受一个缓冲区作为输入，如果它以 <code>abc</code> 开头，就会引起恐慌: </p>
 <pre><pre class="playground"><code class="language-rust">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
@@ -607,7 +597,7 @@ Bye!
 这里需要注意的是，当你的线束有可能出现堆损坏的问题时，你要使用另一个分配器，这样损坏的堆就不会影响到模糊器本身。(例如，我们在一些模糊器中采用MiMalloc）。另外，你也可以用地址净化器来编译你的线束，以确保你能捕捉到这些堆的错误。</p>
 <h2 id="forkserverexecutor"><a class="header" href="#forkserverexecutor">ForkserverExecutor</a></h2>
 <p>接下来，我们来看看<code>ForkserverExecutor</code>。在这种情况下，是<code>afl-cc</code>（来自AFLplus/AFLplus）在编译线束代码，因此，我们不能再使用<code>EDGES_MAP</code>。希望我们有<a href="https://github.com/AFLplusplus/AFLplusplus/blob/2e15661f184c77ac1fbb6f868c894e946cbb7f17/instrumentation/afl-compiler-rt.o.c#L270"><em>a way</em></a>告诉forkserver哪张地图来记录覆盖率。</p>
-<p>你可以从forkserver的例子中看到：</p>
+<p>你可以从forkserver的例子中看到: </p>
 <pre><code class="language-rust ignore">//Coverage map shared between observer and executor
 let mut shmem = StdShMemProvider::new().unwrap().new_shmem(MAP_SIZE).unwrap();
 //let the forkserver know the shmid
@@ -756,7 +746,7 @@ The broker can also intercept and filter the messages it receives instead of for
 在<code>std</code>构建中，经纪人会在循环后睡眠几毫秒，因为我们不需要消息立即到达。
 在经纪人收到来自客户端N的新消息后，（<code>clientN_out-&gt;current_id != last_message-&gt;message_id</code>）经纪人会将消息内容复制到自己的广播共享内存。</p>
 <p>客户端定期地，例如在完成<code>n'次突变后，通过检查是否有新的消息进入（</code>current_broadcast_map-&gt;current_id != last_message-&gt;message_id<code>）。 虽然经纪人使用相同的EOP机制为其传出的地图映射新的</code>ShMem'，但它从不解除旧页面的映射。
-这种额外的内存开销有一个很好的目的：通过保留所有的广播页面，我们确保新的客户可以在以后的时间点加入到模糊测试活动中来
+这种额外的内存开销有一个很好的目的: 通过保留所有的广播页面，我们确保新的客户可以在以后的时间点加入到模糊测试活动中来
 他们只需要从头到尾重新阅读所有广播的信息。</p>
 <p>所以传出的消息在传出的广播<code>Shmem</code>上是这样流动的。</p>
 <pre><code class="language-text">[broker]
@@ -798,7 +788,7 @@ The broker can also intercept and filter the messages it receives instead of for
 <h2 id="launcher"><a class="header" href="#launcher">Launcher</a></h2>
 <p>启动器是lazy模式启动多线程。</p>
 <p>你可以使用<code>Launcher::builder</code>来创建一个产生多个节点的模糊器，所有这些节点都使用重新启动的事件管理器。</p>
-<p>看一个例子：</p>
+<p>看一个例子: </p>
 <pre><code class="language-rust ignore">    Launcher::builder()
         .configuration(EventConfig::from_name(&amp;configuration))
         .shmem_provider(shmem_provider)
@@ -927,7 +917,7 @@ SymCC是clang的一个编译器插件，可以用来替代普通的C或C++编译
 SymCC将对编译后的代码进行回调，使之成为一个可以由用户提供的运行时。
 这些回调允许运行时构建一个类似于前面例子的跟踪。</p>
 <h3 id="symcc和它的运行时"><a class="header" href="#symcc和它的运行时">SymCC和它的运行时</a></h3>
-<p>SymCC有两个运行时：</p>
+<p>SymCC有两个运行时: </p>
 <ul>
 <li>一个 &quot;简单的 &quot;运行时，它试图用 <a href="https://github.com/Z3Prover/z3/wiki">Z3</a> 来解决它遇到的任何分支，以及</li>
 <li>一个基于 <a href="https://github.com/sslab-gatech/qsym">QSym</a> 的运行时，它对表达式进行了更多的过滤，也使用Z3进行求解。</li>
@@ -980,7 +970,7 @@ SymCC将对编译后的代码进行回调，使之成为一个可以由用户提
 <h3 id="构建模糊器"><a class="header" href="#构建模糊器">构建模糊器</a></h3>
 <p>无论采用哪种方法，现在模糊器和被检测目标之间的接口应该是一致的。
 使用SymCC和SymQEMU的唯一区别应该是代表目标的二进制文件。
-在SymCC的情况下，它将是用插桩构建的二进制文件，而在SymQEMU的情况下，它将是模拟器的二进制文件（例如：<code>x86_64-linux-user/symqemu-x86_64</code>），后面是你的非插桩化的目标二进制文件和论据。</p>
+在SymCC的情况下，它将是用插桩构建的二进制文件，而在SymQEMU的情况下，它将是模拟器的二进制文件（例如: <code>x86_64-linux-user/symqemu-x86_64</code>），后面是你的非插桩化的目标二进制文件和论据。</p>
 <p>你可以使用 <a href="https://docs.rs/libafl/0.6.0/libafl/executors/command/struct.CommandExecutor.html"><code>CommandExecutor</code></a> 来执行你的目标（<a href="https://github.com/AFLplusplus/LibAFL/blob/main/fuzzers/libfuzzer_stb_image_concolic/fuzzer/src/main.rs#L244">example</a>）。
 在配置命令时，如果你的目标从文件中读取输入（而不是标准输入），请确保传递 <code>SYMCC_INPUT_FILE</code> 环境变量的输入文件路径。</p>
 <h4 id="序列化和解算"><a class="header" href="#序列化和解算">序列化和解算</a></h4>
@@ -992,7 +982,7 @@ SymCC将对编译后的代码进行回调，使之成为一个可以由用户提
 <p>这个例子说明了如何使用 <a href="https://github.com/AFLplusplus/LibAFL/blob/main/fuzzers/libfuzzer_stb_image_concolic/fuzzer/src/main.rs#L203"><code>ConcolicTracingStage</code>和<code>SimpleConcolicMutationalStage</code></a> 来建立一个基本的混合模糊器。</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="在-no_std-环境中使用-libafl"><a class="header" href="#在-no_std-环境中使用-libafl">在 <code>no_std</code> 环境中使用 LibAFL</a></h1>
 <p>可以在 <code>no_std</code> 环境中使用LibAFL，例如自定义平台，如微控制器、内核、管理程序等等。</p>
-<p>你可以简单地将 LibAFL 添加到你的 <code>Cargo.toml</code> 文件中：</p>
+<p>你可以简单地将 LibAFL 添加到你的 <code>Cargo.toml</code> 文件中: </p>
 <pre><code class="language-toml">libafl = { path = &quot;path/to/libafl/&quot;, default-features = false}
 </code></pre>
 <p>Then build your project e.g. for <code>aarch64-unknown-none</code> using</p>

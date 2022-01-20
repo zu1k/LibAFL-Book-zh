@@ -134,23 +134,21 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="构建libafl"><a class="header" href="#构建libafl">构建LibAFL</a></h1>
-<p>LibAFL和大多数Rust项目一样，可以使用<code>cargo</code>从项目的根目录下构建。</p>
+                        <h1 id="构建-libafl"><a class="header" href="#构建-libafl">构建 LibAFL</a></h1>
+<p>LibAFL 和大多数 Rust 项目一样，可以使用 <code>cargo</code> 从项目的根目录下构建: </p>
 <pre><code class="language-sh">$ cargo build --release
 </code></pre>
-<p>请注意，<code>--release</code>标志在开发中是可选的，但你需要添加它才能以适当的速度进行模糊测试。
-对于Debug构建来说，10倍以上的减速并不罕见。</p>
+<p>请注意，<code>--release</code>在开发测试时是可选项，但使用Debug版本进行模糊测试可能会有10倍以上的性能损失，正式使用时你需要添加 <code>--release</code> 标志才能获得正常的速度。</p>
 <p>LibAFL资源库是由多个板块组成的。
-顶层的<code>Cargo.toml</code>](https://github.com/AFLplusplus/LibAFL/blob/main/Cargo.toml)是将这些板块分组的工作区文件。
-从根目录调用<code>cargo build</code>将编译工作区中的所有板块。</p>
+顶层的 <a href="https://github.com/AFLplusplus/LibAFL/blob/main/Cargo.toml"><code>Cargo.toml</code></a> 是将这些板块分组的工作区文件。
+从根目录调用 <code>cargo build</code> 将编译工作区中的所有板块。</p>
 <h2 id="构建示例模糊器"><a class="header" href="#构建示例模糊器">构建示例模糊器</a></h2>
-<p>对于有经验的rustaceans来说，最好的起点是阅读并改编示例模糊器。</p>
-<p>我们将这些模糊程序放在LibAFL资源库的<a href="https://github.com/AFLplusplus/LibAFL/tree/main/fuzzers"><code>./fuzzers</code></a>目录下。
-该目录包含一组不属于工作区的板条箱。</p>
+<p>对于有经验的 rustaceans 来说，最好的起点是阅读并改编示例模糊器。</p>
+<p>我们将这些模糊程序放在 LibAFL 资源库的 <a href="https://github.com/AFLplusplus/LibAFL/tree/main/fuzzers"><code>./fuzzers</code></a> 目录下，该目录包含一组不属于工作区的crates。</p>
 <p>这些示例模糊器中的每一个都使用了 LibAFL 的特定功能，有时与不同的插桩后端相结合（例如 <a href="https://clang.llvm.org/docs/SanitizerCoverage.html">SanitizerCoverage</a>, <a href="https://frida.re/">Frida</a>, ...）。</p>
-<p>你可以使用这些箱子作为例子，并作为具有类似功能集的自定义模糊器的骨架。
-每个模糊器的目录中都有一个<code>README.md</code>文件，描述模糊器及其特性。</p>
-<p>要建立一个例子的模糊器，你必须从其各自的文件夹（<code>fuzzers/[FUZZER_NAME]</code>）调用<code>cargo build --release</code>。</p>
+<p>你可以使用这些 crates 作为例子，并作为具有类似功能集的自定义模糊器的骨架。
+每个模糊器的目录中都有一个 <code>README.md</code> 文件，描述模糊器及其特性。</p>
+<p>要建立一个例子的模糊器，你必须从其各自的文件夹（<code>fuzzers/[FUZZER_NAME]</code>）调用 <code>cargo build --release</code>。</p>
 
                     </main>
 

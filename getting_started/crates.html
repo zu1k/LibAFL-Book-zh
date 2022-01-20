@@ -135,57 +135,56 @@
                 <div id="content" class="content">
                     <main>
                         <h1 id="crates"><a class="header" href="#crates">Crates</a></h1>
-<p>LibAFL是由不同的crate组成的。
-crate是Rust的Cargo构建系统中的一个单独的库，你可以通过把它添加到你的项目的<code>Cargo.toml</code>中来使用，比如：</p>
+<p>LibAFL 是由不同的 crate 组成的。
+crate 是 Rust 的 Cargo 构建系统中的一个独立的库，你可以通过把它添加到你的项目的 <code>Cargo.toml</code> 文件中来使用，比如: </p>
 <pre><code class="language-toml">[dependencies]
 libafl = { version = &quot;*&quot; }
 </code></pre>
-<p>对于 LibAFL 来说，每个 crate 都有其独立的用途，用户可能不需要在其项目中使用所有的 crate。
-按照项目根目录下的文件夹的命名惯例，它们是。</p>
+<p>对于 LibAFL 来说，每个 crate 都有其独立的用途，用户可能不需要在其项目中使用所有的 crate。</p>
+<p>按照项目根目录下的文件夹的命名惯例，它们是:</p>
 <h3 id="libafl"><a class="header" href="#libafl"><a href="https://github.com/AFLplusplus/LibAFL/tree/main/libafl"><code>libafl</code></a></a></h3>
-<p>这是个主箱，包含了构建模糊器所需的所有组件。</p>
-<p>这个板块有许多特性标志，可以启用和禁用LibAFL的某些方面。
-这些特性可以在 <a href="https://github.com/AFLplusplus/LibAFL/blob/main/libafl/Cargo.toml">LibAFL's <code>Cargo.toml</code></a> &quot;<code>[特性]</code>&quot;下找到，并且通常在那里有注释说明。
+<p>这是 主crate，包含了构建模糊器所需的所有组件。</p>
+<p>这个板块有许多 Feature标志，可以启用和禁用 LibAFL 的某些方面。
+这些特性可以在 <a href="https://github.com/AFLplusplus/LibAFL/blob/main/libafl/Cargo.toml">LibAFL's <code>Cargo.toml</code></a> &quot;<code>[features]</code>&quot;下找到，并且通常在那里有注释说明。
 一些值得注意的特性是。</p>
 <ul>
-<li><code>std</code>启用代码中使用Rust标准库的部分。如果没有这个标志，LibAFL是<code>no_std</code>兼容的。这将禁用一系列功能，但允许我们在嵌入式环境中使用LibAFL，阅读<a href="../advanced_features/no_std/no_std.html">no_std`部分</a>了解更多细节。</li>
-<li><code>derive</code>可以使用libafl的libafl_derive中定义的<code>derive(...)</code>宏。</li>
-<li><code>rand_trait</code>允许你在需要与Rust的<a href="https://crates.io/crates/rand"><code>rand</code> crate</a>兼容的地方使用LibAFL的非常快速（<em>但不安全！</em>）的随机数发生器。</li>
-<li><code>llmp_bind_public</code>使LibAFL的LLMP绑定到一个公共的TCP端口，其他的fuzzers节点可以通过这个端口与这个实例通信。</li>
-<li><code>introspection</code>为LibAFL添加性能统计。</li>
+<li><code>std</code>: 启用代码中使用Rust标准库的部分。如果没有这个标志，LibAFL是 <code>no_std</code> 兼容的，这将禁用一系列功能，但允许我们在嵌入式环境中使用LibAFL，阅读 <a href="../advanced_features/no_std/no_std.html">no_std`部分</a> 了解更多细节</li>
+<li><code>derive</code>: 可以使用 LibAFL 的 libafl_derive 中定义的 <code>derive(...)</code> 宏</li>
+<li><code>rand_trait</code>: 允许你在需要与Rust的 <a href="https://crates.io/crates/rand"><code>rand</code> crate</a> 兼容的地方使用LibAFL的非常快速（<em>但不安全！</em>）的随机数发生器</li>
+<li><code>llmp_bind_public</code>: 使 LibAFL 的 LLMP 绑定到一个公共的TCP端口，其他的fuzzers节点可以通过这个端口与这个实例通信</li>
+<li><code>introspection</code>: 为LibAFL添加性能统计</li>
 </ul>
-<p>你可以通过在你的<code>Cargo.toml</code>中为LibAFL使用<code>features = [&quot;feature1&quot;, &quot;feature2&quot;, ...]</code>来选择特性。
-在这个列表中，默认情况下，<code>std</code>、<code>derive</code>和<code>rand_trait</code>已经被设置。
-你可以通过在你的<code>Cargo.toml</code>中设置<code>default-features = false</code>来选择禁用它们。</p>
+<p>你可以通过在你的 <code>Cargo.toml</code> 中为 LibAFL 使用 <code>features = [&quot;feature1&quot;, &quot;feature2&quot;, ...]</code> 来选择特性。
+在这个列表中，默认情况下，<code>std</code>、<code>derive</code> 和 <code>rand_trait</code> 已经被设置。你可以通过在你的 <code>Cargo.toml</code> 中设置 <code>default-features = false</code> 来选择禁用它们。</p>
 <h3 id="libafl_sugar"><a class="header" href="#libafl_sugar">libafl_sugar</a></h3>
 <p>sugar crate 抽离了 LibAFL API 的大部分复杂性。
 它的目标不是高灵活性，而是高层次和易于使用。
 它不像从每个单独的组件中缝合你的模糊器那样灵活，但允许你用最少的代码行建立一个模糊器。
 要看它的运行情况，请看一下<a href="https://github.com/AFLplusplus/LibAFL/tree/main/fuzzers/libfuzzer_stb_image_sugar"><code>libfuzzer_stb_image_sugar</code>示例模糊器</a>。</p>
 <h3 id="libafl_derive"><a class="header" href="#libafl_derive">libafl_derive</a></h3>
-<p>这是一个与<code>libafl</code>板块配对的proc-macro板块。</p>
-<p>目前，它只是暴露了<code>derive(SerdeAny)</code>宏，可以用来定义Metadata结构，详见关于<a href="../design/metadata.html">Metadata</a>的部分。</p>
+<p>这是一个与 <code>libafl</code> crate 配对的 proc-macro 板块。</p>
+<p>目前，它只是暴露了 <code>derive(SerdeAny)</code> 宏，可以用来定义 Metadata 结构，详见关于 <a href="../design/metadata.html">Metadata</a> 的部分。</p>
 <h3 id="libafl_targets"><a class="header" href="#libafl_targets">libafl_targets</a></h3>
 <p>这个板块提供了与目标交互的代码，并对其进行检测。
 为了在编译时启用和禁用功能，使用功能标志来启用和禁用这些功能。</p>
-<p>目前，支持的标志有</p>
+<p>目前，支持的标志有：</p>
 <ul>
-<li><code>pcguard_edges</code>定义了SanitizerCoverage trace-pc-guard钩子来跟踪地图中的执行边。</li>
-<li><code>pcguard_hitcounts</code>定义了SanitizerCoverage追踪-pc-guard的钩子，以追踪地图中已执行的边和hitcounts（如AFL）。</li>
-<li><code>libfuzzer</code>提供了一个与libFuzzer风格线束的兼容层。</li>
-<li><code>value_profile</code>定义了SanitizerCoverage trace-cmp钩子，以跟踪地图中每个比较的匹配位。</li>
+<li><code>pcguard_edges</code>: 定义了 SanitizerCoverage trace-pc-guard 钩子来跟踪地图中的执行边</li>
+<li><code>pcguard_hitcounts</code>: 定义了 SanitizerCoverage trace-pc-guard 钩子，以追踪地图中已执行的边和hitcounts（如AFL）</li>
+<li><code>libfuzzer</code>: 提供了一个 libFuzzer 风格的兼容层</li>
+<li><code>value_profile</code>: 定义了 SanitizerCoverage trace-cmp 钩子，以跟踪地图中每个比较的匹配位</li>
 </ul>
 <h3 id="libafl_cc"><a class="header" href="#libafl_cc">libafl_cc</a></h3>
 <p>这是一个提供实用程序的库，用于包装编译器和创建源码级模糊器。</p>
 <p>目前，只有Clang编译器被支持。
 为了更深入地了解它，请看一下教程和例子。</p>
 <h3 id="libafl_frida"><a class="header" href="#libafl_frida">libafl_frida</a></h3>
-<p>这个库将LibAFL与Frida作为插桩分析的后端连接起来。</p>
-<p>有了这个库，你就可以对Linux/MacOS/Windows/Android上的目标进行覆盖率采集。</p>
-<p>此外，它还支持CmpLog和AddressSanitizer插桩和aarch64的运行时间。</p>
+<p>这个库将 LibAFL 与 Frida 作为插桩分析的后端连接起来。</p>
+<p>有了这个库，你就可以对 Linux/MacOS/Windows/Android 上的目标进行覆盖率采集。</p>
+<p>此外，它还支持 CmpLog 和 AddressSanitizer 插桩和 aarch64 的运行时。</p>
 <h3 id="libafl_qemu"><a class="header" href="#libafl_qemu">libafl_qemu</a></h3>
-<p>这个库将LibAFL与QEMU用户模式连接起来，以模糊ELF跨平台二进制文件。</p>
-<p>它可以在Linux上工作，并且可以在没有碰撞的情况下收集边缘覆盖率!
+<p>这个库将 LibAFL 与 QEMU 用户模式连接起来，以模糊 ELF 跨平台二进制文件。</p>
+<p>它可以在 Linux 上工作，并且可以在没有碰撞的情况下收集边缘覆盖率!
 它还支持大量的钩子和插桩选项。</p>
 
                     </main>
