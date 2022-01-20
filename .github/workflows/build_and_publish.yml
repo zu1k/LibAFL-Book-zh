@@ -1,0 +1,32 @@
+name: Build and Publish
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+env:
+  CARGO_TERM_COLOR: always
+
+jobs:
+  build-and-publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions-rs/toolchain@v1
+        with:
+          profile: minimal
+          toolchain: nightly
+      - uses: Swatinem/rust-cache@v1
+      - name: install mdbook
+        run: cargo install mdbook
+      - name: install linkcheck
+        run: cargo install mdbook-linkcheck
+      - uses: actions/checkout@v2
+      - name: Build the book
+        run: mdbook build
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: docs/book/html
