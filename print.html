@@ -997,25 +997,25 @@ SymCC将对编译后的代码进行回调，使之成为一个可以由用户提
 它将尝试解决所有分支，就像SymCC的原始简单后端一样，使用Z3。</p>
 <h3 id="示例"><a class="header" href="#示例">示例</a></h3>
 <p>这个例子说明了如何使用 <a href="https://github.com/AFLplusplus/LibAFL/blob/main/fuzzers/libfuzzer_stb_image_concolic/fuzzer/src/main.rs#L203"><code>ConcolicTracingStage</code>和<code>SimpleConcolicMutationalStage</code></a> 来建立一个基本的混合模糊器。</p>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="在no_std环境中使用libafl"><a class="header" href="#在no_std环境中使用libafl">在<code>no_std</code>环境中使用LibAFL</a></h1>
-<p>可以在<code>no_std</code>环境中使用LibAFL，例如自定义平台，如微控制器、内核、管理程序等等。</p>
-<p>你可以简单地将LibAFL添加到你的<code>Cargo.toml</code>文件中。</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="在-no_std-环境中使用-libafl"><a class="header" href="#在-no_std-环境中使用-libafl">在 <code>no_std</code> 环境中使用 LibAFL</a></h1>
+<p>可以在 <code>no_std</code> 环境中使用LibAFL，例如自定义平台，如微控制器、内核、管理程序等等。</p>
+<p>你可以简单地将 LibAFL 添加到你的 <code>Cargo.toml</code> 文件中：</p>
 <pre><code class="language-toml">libafl = { path = &quot;path/to/libafl/&quot;, default-features = false}
 </code></pre>
 <p>Then build your project e.g. for <code>aarch64-unknown-none</code> using</p>
 <pre><code class="language-sh">cargo build --no-default-features --target aarch64-unknown-none
 </code></pre>
-<h2 id="使用自定义计时"><a class="header" href="#使用自定义计时">使用自定义计时</a></h2>
-<p>LibAFL对<code>no_std</code>的最小输入量是一个单调增长的时间戳。
-为此，在你项目的任何地方，你需要实现<code>external_current_millis</code>函数，它以毫秒为单位返回当前时间。</p>
+<h2 id="使用自定义时间戳"><a class="header" href="#使用自定义时间戳">使用自定义时间戳</a></h2>
+<p>LibAFL 对 <code>no_std</code> 的最小输入量是一个单调增长的时间戳。
+为此，在你项目的任何地方，你需要实现 <code>external_current_millis</code> 函数，它以毫秒为单位返回当前时间。</p>
 <p>// 假设这是一个来自自定义stdlib的时钟源，你想使用它，它以秒为单位返回当前时间。</p>
 <pre><code class="language-c">int my_real_seconds(void)
 {
     return *CLOCK;
 }
 </code></pre>
-<p>而在这里我们在Rust中使用它。<code>external_current_millis</code>会被LibAFL调用。
-注意，它需要是<code>no_mangle</code>，以便在链接时间被LibAFL接收。</p>
+<p>而在这里我们在 Rust 中使用它，<code>external_current_millis</code> 会被LibAFL调用。
+注意，它需要是 <code>no_mangle</code> ，以便在链接时被 LibAFL 接受。</p>
 <pre><code class="language-rust ignore">#[no_mangle]
 pub extern &quot;C&quot; fn external_current_millis() -&gt; u64 {
     unsafe { my_real_seconds()*1000 }
