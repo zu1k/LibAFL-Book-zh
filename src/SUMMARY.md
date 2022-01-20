@@ -33,5 +33,5 @@
   - [简介](./tutorial/intro.md)
 
 - [高级功能](./advanced_features/advanced_features.md)
-  - [同心追踪和混合模糊](./advanced_features/concolic/concolic.md)
+  - [Concolic Tracing和混合模糊](./advanced_features/concolic/concolic.md)
   - [LibAFL在 `no_std` 环境下 (内核、管理程序...) ](./advanced_features/no_std/no_std.md)
