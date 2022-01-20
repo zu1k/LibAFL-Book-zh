@@ -24,7 +24,7 @@ The broker can also intercept and filter the messages it receives instead of for
 ### 通过共享内存的快速本地消息
 
 在整个LibAFL中，我们使用了一个围绕不同操作系统的共享 map 的包装器，称为`ShMem`。
-共享 map ，为了不与Rust的`map()`函数相冲突，被称为共享内存，是`LLMP`的骨干。
+共享 map，为了不与Rust的`map()`函数相冲突，被称为共享内存，是`LLMP`的骨干。
 每个客户，通常是试图分享统计数据和新的测试案例的摸索者，都会映射一个输出的`ShMem` map 。
 除了极少数的例外，只有这个客户写到这个 map 上，因此，我们不会在竞赛条件下运行，可以不用锁。
 代理人从所有客户的`ShMem`映射中读取。
@@ -33,7 +33,7 @@ The broker can also intercept and filter the messages it receives instead of for
 为了发送新消息，客户端在其共享内存的末端放置一个新消息，然后更新一个静态字段来通知代理。
 一旦传出的映射已满，发送者使用各自的`ShMemProvider'分配一个新的`ShMem'。
 然后，它使用页面结束 (`EOP`) 消息发送所需信息，将连接进程中新分配的页面映射到旧的页面。
-一旦接收者映射了新的页面，就把它标记为安全的，可以从发送进程中解除映射 (如果我们在短时间内有超过一个EOP，就可以避免竞赛条件) ，然后继续从新的`ShMem`中读取。
+一旦接收者映射了新的页面，就把它标记为安全的，可以从发送进程中解除映射 (如果我们在短时间内有超过一个EOP，就可以避免竞赛条件)，然后继续从新的`ShMem`中读取。
 
 The schema for client's maps to the broker is as follows:
 ```text

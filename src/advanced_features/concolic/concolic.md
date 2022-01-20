@@ -162,10 +162,10 @@ LibAFL资源库中包含了一个[混合模糊器实例](https://github.com/AFLp
 
 无论采用哪种方法，现在模糊器和被检测目标之间的接口应该是一致的。
 使用SymCC和SymQEMU的唯一区别应该是代表目标的二进制文件。
-在SymCC的情况下，它将是用插桩构建的二进制文件，而在SymQEMU的情况下，它将是模拟器的二进制文件 (例如: `x86_64-linux-user/symqemu-x86_64`) ，后面是你的非插桩化的目标二进制文件和论据。
+在SymCC的情况下，它将是用插桩构建的二进制文件，而在SymQEMU的情况下，它将是模拟器的二进制文件 (例如: `x86_64-linux-user/symqemu-x86_64`)，后面是你的非插桩化的目标二进制文件和论据。
 
 你可以使用 [`CommandExecutor`](https://docs.rs/libafl/0.6.0/libafl/executors/command/struct.CommandExecutor.html) 来执行你的目标 ([example](https://github.com/AFLplusplus/LibAFL/blob/main/fuzzers/libfuzzer_stb_image_concolic/fuzzer/src/main.rs#L244)) 。
-在配置命令时，如果你的目标从文件中读取输入 (而不是标准输入) ，请确保传递 `SYMCC_INPUT_FILE` 环境变量的输入文件路径。
+在配置命令时，如果你的目标从文件中读取输入 (而不是标准输入)，请确保传递 `SYMCC_INPUT_FILE` 环境变量的输入文件路径。
 
 #### 序列化和解算
 

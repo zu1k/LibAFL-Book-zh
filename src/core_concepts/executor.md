@@ -18,7 +18,7 @@
 ## InProcessExecutor
 
 让我们从基本情况开始: `InProcessExecutor`。
-这个执行器使用 [_SanitizerCoverage_](https://clang.llvm.org/docs/SanitizerCoverage.html) 作为其后端，你可以在 `libafl_targets/src/sancov_pcguards` 中找到相关代码。在这里，我们分配了一个名为 `EDGES_MAP` 的 map ，然后我们的编译器包装器编译约束函数，将覆盖率写入这个 map 中。
+这个执行器使用 [_SanitizerCoverage_](https://clang.llvm.org/docs/SanitizerCoverage.html) 作为其后端，你可以在 `libafl_targets/src/sancov_pcguards` 中找到相关代码。在这里，我们分配了一个名为 `EDGES_MAP` 的 map，然后我们的编译器包装器编译约束函数，将覆盖率写入这个 map 中。
 当你想尽可能快地执行约束函数时，你很可能想使用 `InprocessExecutor`。 
 
 这里需要注意的是，当你的约束函数有可能出现堆损坏的问题时，你要使用另一个分配器，这样损坏的堆就不会影响到模糊器本身。(例如，我们在一些模糊器中采用 MiMalloc) 。另外，你也可以启用 AddressSanitizer 来编译你的约束函数，以确保你能捕捉到这些堆的错误。
@@ -47,8 +47,8 @@ let mut shmem_buf = shmem.as_mut_slice();
 ## InprocessForkExecutor
 
 最后，我们来谈谈 `InProcessForkExecutor`。
-`InProcessForkExecutor` 与 `InprocessExecutor` 只有一个区别: 它在运行约束函数之前进行 fork ，仅此而已。 
-但为什么我们要这样做呢？好吧，在某些情况下，你可能会发现你的约束函数非常不稳定，或者你的约束函数对全局状态造成了破坏。在这种情况下，你想在子进程中执行约束函数运行之前将其 fork ，这样就不会破坏事情。 
+`InProcessForkExecutor` 与 `InprocessExecutor` 只有一个区别: 它在运行约束函数之前进行 fork，仅此而已。 
+但为什么我们要这样做呢？好吧，在某些情况下，你可能会发现你的约束函数非常不稳定，或者你的约束函数对全局状态造成了破坏。在这种情况下，你想在子进程中执行约束函数运行之前将其 fork，这样就不会破坏事情。 
 然而，我们必须照顾到共享内存，是子进程在运行约束函数代码，并将覆盖范围写到 map 上。 
 我们必须使 map 在父进程和子进程之间共享，所以我们将再次使用共享内存。你应该用 `pointer_maps` (用于 `libafl_targes`) 功能来编译你的约束函数，这样，我们可以有一个指针: `EDGES_MAP_PTR`，可以指向任何覆盖图。
 在你的fuzzer方面，你可以分配一个共享内存区域，让 `EDGES_MAP_PTR` 指向你的共享内存。

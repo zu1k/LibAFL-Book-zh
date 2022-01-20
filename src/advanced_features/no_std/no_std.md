@@ -28,7 +28,7 @@ int my_real_seconds(void)
 ```
 
 而在这里我们在 Rust 中使用它，`external_current_millis` 会被LibAFL调用。
-注意，它需要是 `no_mangle` ，以便在链接时被 LibAFL 接受。
+注意，它需要是 `no_mangle`，以便在链接时被 LibAFL 接受。
 
 ```rust,ignore
 #[no_mangle]
