@@ -135,11 +135,11 @@
                 <div id="content" class="content">
                     <main>
                         <h1 id="在-no_std-环境中使用-libafl"><a class="header" href="#在-no_std-环境中使用-libafl">在 <code>no_std</code> 环境中使用 LibAFL</a></h1>
-<p>可以在 <code>no_std</code> 环境中使用LibAFL，例如自定义平台，如微控制器、内核、管理程序等等。</p>
+<p>可以在 <code>no_std</code> 环境中使用 LibAFL，例如自定义平台，如微控制器、内核、管理程序等等。</p>
 <p>你可以简单地将 LibAFL 添加到你的 <code>Cargo.toml</code> 文件中:</p>
 <pre><code class="language-toml">libafl = { path = &quot;path/to/libafl/&quot;, default-features = false}
 </code></pre>
-<p>Then build your project e.g. for <code>aarch64-unknown-none</code> using</p>
+<p>然后构建你的项目，例如为 <code>aarch64-unknown-none</code> 使用:</p>
 <pre><code class="language-sh">cargo build --no-default-features --target aarch64-unknown-none
 </code></pre>
 <h2 id="使用自定义时间戳"><a class="header" href="#使用自定义时间戳">使用自定义时间戳</a></h2>
