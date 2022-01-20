@@ -18,15 +18,15 @@
 ## InProcessExecutor
 
 让我们从基本情况开始；`InProcessExecutor`。
-这个执行器使用[_SanitizerCoverage_](https://clang.llvm.org/docs/SanitizerCoverage.html)作为其后端，你可以在`libafl_targets/src/sancov_pcguards`中找到相关代码。在这里，我们分配了一个名为 "EDGES_MAP "的地图，然后我们的编译器包装器编译线束，将覆盖率写入这个地图中。
+这个执行器使用[_SanitizerCoverage_](https://clang.llvm.org/docs/SanitizerCoverage.html)作为其后端，你可以在`libafl_targets/src/sancov_pcguards`中找到相关代码。在这里，我们分配了一个名为 "EDGES_MAP "的 map ，然后我们的编译器包装器编译线束，将覆盖率写入这个 map 中。
 当你想尽可能快地执行线束时，你很可能想使用这个`InprocessExecutor`。 
  这里需要注意的是，当你的线束有可能出现堆损坏的问题时，你要使用另一个分配器，这样损坏的堆就不会影响到模糊器本身。(例如，我们在一些模糊器中采用MiMalloc）。另外，你也可以用地址净化器来编译你的线束，以确保你能捕捉到这些堆的错误。
 
 ## ForkserverExecutor
 
-接下来，我们来看看`ForkserverExecutor`。在这种情况下，是`afl-cc`（来自AFLplus/AFLplus）在编译线束代码，因此，我们不能再使用`EDGES_MAP`。希望我们有[_a way_](https://github.com/AFLplusplus/AFLplusplus/blob/2e15661f184c77ac1fbb6f868c894e946cbb7f17/instrumentation/afl-compiler-rt.o.c#L270)告诉forkserver哪张地图来记录覆盖率。
+接下来，我们来看看`ForkserverExecutor`。在这种情况下，是`afl-cc`（来自AFLplus/AFLplus）在编译线束代码，因此，我们不能再使用`EDGES_MAP`。希望我们有[_a way_](https://github.com/AFLplusplus/AFLplusplus/blob/2e15661f184c77ac1fbb6f868c894e946cbb7f17/instrumentation/afl-compiler-rt.o.c#L270)告诉forkserver哪张 map 来记录覆盖率。
 
-你可以从forkserver的例子中看到: 
+你可以从forkserver的例子中看到:\r
 
 ```rust,ignore
 //Coverage map shared between observer and executor
@@ -48,8 +48,8 @@ let mut shmem_buf = shmem.as_mut_slice();
 最后，我们来谈谈`InProcessForkExecutor`。
 `InProcessForkExecutor`与`InprocessExecutor`只有一个区别；它在运行线束之前进行分叉，仅此而已。 
 但为什么我们要这样做呢？好吧，在某些情况下，你可能会发现你的线束非常不稳定，或者你的线束对全局状态造成了破坏。在这种情况下，你想在子进程中执行线束运行之前将其分叉，这样就不会破坏事情。 
-然而，我们必须照顾到共享内存，是子进程在运行线束代码，并将覆盖范围写到地图上。 
-我们必须使地图在父进程和子进程之间共享，所以我们将再次使用共享内存。你应该用`pointer_maps`（用于`libafl_targes`）功能来编译你的线束，这样，我们可以有一个指针；`EDGES_MAP_PTR`，可以指向任何覆盖图。
+然而，我们必须照顾到共享内存，是子进程在运行线束代码，并将覆盖范围写到 map 上。 
+我们必须使 map 在父进程和子进程之间共享，所以我们将再次使用共享内存。你应该用`pointer_maps`（用于`libafl_targes`）功能来编译你的线束，这样，我们可以有一个指针；`EDGES_MAP_PTR`，可以指向任何覆盖图。
 在你的fuzzer方面，你可以分配一个共享内存区域，让`EDGES_MAP_PTR`指向你的共享内存。
 
 ```rust,ignore
@@ -63,4 +63,4 @@ unsafe{
 }
 ```
 
-同样，你可以把这个`shmem`地图传递给你的`Observer`和`Feedback`以获得覆盖率反馈。
+同样，你可以把这个`shmem` map 传递给你的`Observer`和`Feedback`以获得覆盖率反馈。

@@ -1,7 +1,7 @@
 # Crates
 
 LibAFL 是由不同的 crate 组成的。
-crate 是 Rust 的 Cargo 构建系统中的一个独立的库，你可以通过把它添加到你的项目的 `Cargo.toml` 文件中来使用，比如: 
+crate 是 Rust 的 Cargo 构建系统中的一个独立的库，你可以通过把它添加到你的项目的 `Cargo.toml` 文件中来使用，比如:\r
 
 ```toml
 [dependencies]
@@ -47,12 +47,12 @@ sugar crate 抽离了 LibAFL API 的大部分复杂性。
 这个板块提供了与目标交互的代码，并对其进行检测。
 为了在编译时启用和禁用功能，使用功能标志来启用和禁用这些功能。
 
-目前，支持的标志有：
+目前，支持的标志有:\r
 
-- `pcguard_edges`: 定义了 SanitizerCoverage trace-pc-guard 钩子来跟踪地图中的执行边
-- `pcguard_hitcounts`: 定义了 SanitizerCoverage trace-pc-guard 钩子，以追踪地图中已执行的边和hitcounts（如AFL）
+- `pcguard_edges`: 定义了 SanitizerCoverage trace-pc-guard 钩子来跟踪 map 中的执行边
+- `pcguard_hitcounts`: 定义了 SanitizerCoverage trace-pc-guard 钩子，以追踪 map 中已执行的边和hitcounts（如AFL）
 - `libfuzzer`: 提供了一个 libFuzzer 风格的兼容层
-- `value_profile`: 定义了 SanitizerCoverage trace-cmp 钩子，以跟踪地图中每个比较的匹配位
+- `value_profile`: 定义了 SanitizerCoverage trace-cmp 钩子，以跟踪 map 中每个比较的匹配位
 
 ### libafl_cc
 

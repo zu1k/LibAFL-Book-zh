@@ -25,7 +25,7 @@ pub struct MyMetadata {
 
 元数据对象主要用于[`SerdeAnyMap`](https://docs.rs/libafl/0.5.0/libafl/bolts/serdeany/serdeany_registry/struct.SerdeAnyMap.html)和[`NamedSerdeAnyMap`](https://docs.rs/libafl/0.5.0/libafl/bolts/serdeany/serdeany_registry/struct.NamedSerdeAnyMap.html)中。
 
-通过这些地图，用户可以按类型（和名称）检索实例。在内部，这些实例被存储为SerdeAny特质对象。
+通过这些 map ，用户可以按类型（和名称）检索实例。在内部，这些实例被存储为SerdeAny特质对象。
 
 想拥有一套元数据的结构必须实现[`HasMetadata`](https://docs.rs/libafl/0.5.0/libafl/state/trait.HasMetadata.html)特质。
 

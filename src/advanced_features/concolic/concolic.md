@@ -95,7 +95,7 @@ SymCC将对编译后的代码进行回调，使之成为一个可以由用户提
 
 ### SymCC和它的运行时
 
-SymCC有两个运行时: 
+SymCC有两个运行时:\r
 
  * 一个 "简单的 "运行时，它试图用 [Z3](https://github.com/Z3Prover/z3/wiki) 来解决它遇到的任何分支，以及
  * 一个基于 [QSym](https://github.com/sslab-gatech/qsym) 的运行时，它对表达式进行了更多的过滤，也使用Z3进行求解。

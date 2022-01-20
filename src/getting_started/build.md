@@ -1,6 +1,6 @@
 # 构建 LibAFL
 
-LibAFL 和大多数 Rust 项目一样，可以使用 `cargo` 从项目的根目录下构建: 
+LibAFL 和大多数 Rust 项目一样，可以使用 `cargo` 从项目的根目录下构建:\r
 
 ```sh
 $ cargo build --release

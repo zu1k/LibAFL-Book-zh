@@ -10,7 +10,7 @@
 
 虽然技术上你不需要安装 LibAFL，而是可以直接使用 crates.io 的版本，但我们还是建议下载或克隆 GitHub版本，这样你就可以得到示例模糊器、额外的实用程序和最新的补丁。
 
-最简单的方法是使用 `git`: 
+最简单的方法是使用 `git`:\r
 
 ```sh
 $ git clone git@github.com:AFLplusplus/LibAFL.git

@@ -19,7 +19,7 @@
   - [语料库 Corpus](./core_concepts/corpus.md)
   - [突变器 Mutator](./core_concepts/mutator.md)
   - [生成器 Generator](./core_concepts/generator.md)
-  - [阶段 Stage](./core_concepts/stage.md)
+  - [状态 Stage](./core_concepts/stage.md)
 
 - [设计](./design/design.md)
   - [架构](./design/architecture.md)
