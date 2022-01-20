@@ -1,6 +1,6 @@
 # 在 `no_std` 环境中使用 LibAFL
 
-可以在 `no_std` 环境中使用LibAFL，例如自定义平台，如微控制器、内核、管理程序等等。
+可以在 `no_std` 环境中使用 LibAFL，例如自定义平台，如微控制器、内核、管理程序等等。
 
 你可以简单地将 LibAFL 添加到你的 `Cargo.toml` 文件中:
 
@@ -8,7 +8,8 @@
 libafl = { path = "path/to/libafl/", default-features = false}
 ```
 
-Then build your project e.g. for `aarch64-unknown-none` using
+然后构建你的项目，例如为 `aarch64-unknown-none` 使用:
+
 ```sh
 cargo build --no-default-features --target aarch64-unknown-none
 ```
