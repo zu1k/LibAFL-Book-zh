@@ -1,0 +1,326 @@
+<!DOCTYPE HTML>
+<html lang="zh" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>同心追踪和混合模糊 - LibAFL模糊测试库</title>
+        <!-- Custom HTML head -->
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="../../favicon.svg">
+        <link rel="shortcut icon" href="../../favicon.png">
+        <link rel="stylesheet" href="../../css/variables.css">
+        <link rel="stylesheet" href="../../css/general.css">
+        <link rel="stylesheet" href="../../css/chrome.css">
+        <link rel="stylesheet" href="../../css/print.css" media="print">
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../../fonts/fonts.css">
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../../highlight.css">
+        <link rel="stylesheet" href="../../tomorrow-night.css">
+        <link rel="stylesheet" href="../../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "../../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../../libafl.html">LibAFL模糊测试库</a></li><li class="chapter-item expanded affix "><a href="../../introduction.html">简介</a></li><li class="chapter-item expanded "><a href="../../getting_started/getting_started.html"><strong aria-hidden="true">1.</strong> 入门</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../getting_started/setup.html"><strong aria-hidden="true">1.1.</strong> 设置</a></li><li class="chapter-item expanded "><a href="../../getting_started/build.html"><strong aria-hidden="true">1.2.</strong> 构建</a></li><li class="chapter-item expanded "><a href="../../getting_started/crates.html"><strong aria-hidden="true">1.3.</strong> Crates</a></li></ol></li><li class="chapter-item expanded "><a href="../../baby_fuzzer.html"><strong aria-hidden="true">2.</strong> 简单的模糊器实例</a></li><li class="chapter-item expanded "><a href="../../core_concepts/core_concepts.html"><strong aria-hidden="true">3.</strong> 核心概念</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../core_concepts/observer.html"><strong aria-hidden="true">3.1.</strong> 观察者 Observer</a></li><li class="chapter-item expanded "><a href="../../core_concepts/executor.html"><strong aria-hidden="true">3.2.</strong> 执行器 Executor</a></li><li class="chapter-item expanded "><a href="../../core_concepts/feedback.html"><strong aria-hidden="true">3.3.</strong> 反馈 Feedback</a></li><li class="chapter-item expanded "><a href="../../core_concepts/input.html"><strong aria-hidden="true">3.4.</strong> 输入 Input</a></li><li class="chapter-item expanded "><a href="../../core_concepts/corpus.html"><strong aria-hidden="true">3.5.</strong> 语料库 Corpus</a></li><li class="chapter-item expanded "><a href="../../core_concepts/mutator.html"><strong aria-hidden="true">3.6.</strong> 突变器 Mutator</a></li><li class="chapter-item expanded "><a href="../../core_concepts/generator.html"><strong aria-hidden="true">3.7.</strong> 生成器 Generator</a></li><li class="chapter-item expanded "><a href="../../core_concepts/stage.html"><strong aria-hidden="true">3.8.</strong> 阶段 Stage</a></li></ol></li><li class="chapter-item expanded "><a href="../../design/design.html"><strong aria-hidden="true">4.</strong> 设计</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../design/architecture.html"><strong aria-hidden="true">4.1.</strong> 架构</a></li><li class="chapter-item expanded "><a href="../../design/metadata.html"><strong aria-hidden="true">4.2.</strong> 元数据</a></li></ol></li><li class="chapter-item expanded "><a href="../../message_passing/message_passing.html"><strong aria-hidden="true">5.</strong> 消息传递</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../message_passing/spawn_instances.html"><strong aria-hidden="true">5.1.</strong> 生成实例</a></li><li class="chapter-item expanded "><a href="../../message_passing/configurations.html"><strong aria-hidden="true">5.2.</strong> 配置</a></li></ol></li><li class="chapter-item expanded "><a href="../../tutorial/tutorial.html"><strong aria-hidden="true">6.</strong> 教程</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../tutorial/intro.html"><strong aria-hidden="true">6.1.</strong> 简介</a></li></ol></li><li class="chapter-item expanded "><a href="../../advanced_features/advanced_features.html"><strong aria-hidden="true">7.</strong> 高级功能</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../advanced_features/concolic/concolic.html" class="active"><strong aria-hidden="true">7.1.</strong> 同心追踪和混合模糊</a></li><li class="chapter-item expanded "><a href="../../advanced_features/no_std/no_std.html"><strong aria-hidden="true">7.2.</strong> LibAFL在 no_std 环境下（内核、管理程序...）</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">LibAFL模糊测试库</h1>
+
+                    <div class="right-buttons">
+                        <a href="../../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="并行追踪和混合模糊测试"><a class="header" href="#并行追踪和混合模糊测试">并行追踪和混合模糊测试</a></h1>
+<p>LibAFL支持基于 <a href="https://github.com/eurecom-s3/symcc">SymCC</a> 仪表编译器的协程跟踪。</p>
+<p>对于那些没有经验的人来说，下面将尝试用一个例子从头开始描述协程跟踪。
+然后，我们将讨论SymCC和LibAFL协程跟踪的关系。
+最后，我们将通过使用LibAFL构建一个基本的混合模糊器。</p>
+<h2 id="同期追踪的例子"><a class="header" href="#同期追踪的例子">同期追踪的例子</a></h2>
+<p>假设你想对以下程序进行模糊处理。</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>fn target(input: &amp;[u8]) -&gt; i32 {
+    match &amp;input {
+        // fictitious crashing input
+        &amp;[1, 3, 3, 7] =&gt; 1337,
+        // standard error handling code
+        &amp;[] =&gt; -1,
+        // representative of normal execution
+        _ =&gt; 0 
+    }
+}
+<span class="boring">}
+</span></code></pre></pre>
+<p>一个简单的覆盖率最大化的模糊器在某种程度上随机地产生新的输入，将很难找到触发虚构的崩溃输入的一个输入。
+许多技术被提出来，以使模糊处理不那么随机，而是更直接地试图改变输入，以翻转特定的分支，例如参与崩溃上述程序的分支。</p>
+<p>并行追踪允许我们以 <strong>分析的方式而不是</strong> 随机的方式（即猜测）构建一个输入，以锻炼程序中的一个新路径（比如例子中的崩溃路径）。
+原则上，协程跟踪的工作方式是观察程序执行过程中所有依赖输入的执行指令。
+为了理解这一点，我们将以上述程序为例进行说明。</p>
+<p>首先，我们将程序简化为简单的if-then-else-statements。</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>fn target(input: &amp;[u8]) -&gt; i32 {
+    if input.len() == 4 {
+        if input[0] == 1 {
+            if input[1] == 3 {
+                if input[2] == 3 {
+                    if input[3] == 7 {
+                        return 1337;
+                    } else {
+                        return 0;
+                    }
+                } else {
+                    return 0;
+                }
+            } else {
+                return 0;
+            }
+        } else {
+            return 0;
+        }
+    } else {
+        if input.len() == 0 {
+            return -1;
+        } else {
+            return 0;
+        }
+    }
+}
+<span class="boring">}
+</span></code></pre></pre>
+<p>Next, we'll trace the program on the input <code>[]</code>.
+The trace would look like this:</p>
+<pre><code class="language-rust ignore">Branch { // if input.len() == 4
+    condition: Equals { 
+        left: Variable { name: &quot;input_len&quot; }, 
+        right: Integer { value: 4 } 
+    }, 
+    taken: false // This condition turned out to be false...
+}
+Branch { // if input.len() == 0
+    condition: Equals { 
+        left: Variable { name: &quot;input_len&quot; }, 
+        right: Integer { value: 0 } 
+    }, 
+    taken: true // This condition turned out to be true!
+}
+</code></pre>
+<p>利用这个跟踪，我们可以很容易地推断出，我们可以通过一个长度为4的输入或者一个非零长度的输入来迫使程序采取不同的路径。
+我们通过否定每个分支条件并分析解决所产生的 &quot;表达式 &quot;来做到这一点。
+事实上，我们可以为任何计算创建这些表达式，并把它们交给 <a href="https://en.wikipedia.org/wiki/Satisfiability_modulo_theories">SMT</a>-Solver，它将生成一个满足表达式的输入（只要这种输入存在）。</p>
+<p>在混合模糊计算中，我们将这种追踪+求解的方法与更传统的模糊计算技术相结合。</p>
+<h2 id="libaflsymcc和symqemu中的协程跟踪"><a class="header" href="#libaflsymcc和symqemu中的协程跟踪">LibAFL、SymCC和SymQEMU中的协程跟踪</a></h2>
+<p>LibAFL中的协程跟踪支持是通过SymCC实现的。
+SymCC是clang的一个编译器插件，可以用来替代普通的C或C++编译器。
+SymCC将对编译后的代码进行回调，使之成为一个可以由用户提供的运行时。
+这些回调允许运行时构建一个类似于前面例子的跟踪。</p>
+<h3 id="symcc和它的运行时"><a class="header" href="#symcc和它的运行时">SymCC和它的运行时</a></h3>
+<p>SymCC有两个运行时：</p>
+<ul>
+<li>一个 &quot;简单的 &quot;运行时，它试图用 <a href="https://github.com/Z3Prover/z3/wiki">Z3</a> 来解决它遇到的任何分支，以及</li>
+<li>一个基于 <a href="https://github.com/sslab-gatech/qsym">QSym</a> 的运行时，它对表达式进行了更多的过滤，也使用Z3进行求解。</li>
+</ul>
+<p>然而，与LibAFL的集成需要你使用 <a href="https://docs.rs/symcc_runtime/0.1/symcc_runtime"><code>symcc_runtime</code></a> crate进行 <strong>BYORT</strong>（<em>bring your own runtime</em>）。
+这个工具箱允许你轻松地从内置的构建模块中建立一个自定义的运行时，或者以完全的灵活性创建全新的运行时。
+查看 <code>symcc_runtime</code> 文档，了解更多关于如何建立你自己的运行时的信息。</p>
+<h3 id="symqemu"><a class="header" href="#symqemu">SymQEMU</a></h3>
+<p><a href="https://github.com/eurecom-s3/symqemu">SymQEMU</a> 是SymCC的一个兄弟项目。
+它不是在编译时对目标进行检测，而是通过动态二进制翻译插入检测，建立在 <a href="https://www.qemu.org"><code>QEMU</code></a> 仿真栈之上。
+这意味着使用SymQEMU，任何（x86）二进制文件都可以被追踪，而不需要提前建立仪器。
+<code>symcc_runtime</code> 工具箱支持这种使用情况，用 <code>symcc_runtime</code> 构建的运行时也可用于SymQEMU。</p>
+<h2 id="libafl中的混合型模糊处理"><a class="header" href="#libafl中的混合型模糊处理">LibAFL中的混合型模糊处理</a></h2>
+<p>LibAFL资源库中包含了一个<a href="https://github.com/AFLplusplus/LibAFL/tree/main/fuzzers/libfuzzer_stb_image_concolic">混合模糊器实例</a>。</p>
+<p>使用LibAFL构建一个混合型模糊器主要有三个步骤。</p>
+<ol>
+<li>建立一个运行时间。</li>
+<li>选择一个工具化的方法和</li>
+<li>构建模糊器。</li>
+</ol>
+<p>请注意，这些步骤的顺序是很重要的。
+例如，在用SymCC进行仪器分析之前，我们需要先准备好运行时间。</p>
+<h3 id="建立一个运行时"><a class="header" href="#建立一个运行时">建立一个运行时</a></h3>
+<p>使用<code>symcc_runtime</code>板块可以很容易地构建一个自定义运行时。
+注意，自定义运行时是一个单独的共享对象文件，这意味着我们需要一个单独的crate用于我们的运行时。
+请查看<a href="https://github.com/AFLplusplus/LibAFL/tree/main/fuzzers/libfuzzer_stb_image_concolic/runtime">混合模糊器的运行时间示例</a>和<a href="https://docs.rs/symcc_runtime/0.1/symcc_runtime"><code>symcc_runtime</code> docs</a>以获得灵感。</p>
+<h3 id="工具化"><a class="header" href="#工具化">工具化</a></h3>
+<p>在LibAFL中，有两种主要的工具化方法来使用协程跟踪。</p>
+<ul>
+<li>使用<strong>编译时</strong>仪器化的目标与<strong>SymCC</strong>。
+这只有在目标的源代码可用，并且目标很容易使用SymCC编译器包装器构建的情况下才有效。</li>
+<li>使用<strong>SymQEMU</strong>在**运行时动态地检测目标。
+这避免了一个单独的仪器化目标与协程跟踪仪器化，而且不需要源代码。
+然而，应该注意的是，生成的表达式的 &quot;质量 &quot;可能会大大降低，而且SymQEMU通常比SymCC生成的表达式要多得多，而且明显更曲折。
+因此，建议尽可能使用SymCC而不是SymQEMU。</li>
+</ul>
+<h4 id="使用symcc"><a class="header" href="#使用symcc">使用SymCC</a></h4>
+<p>在使用SymCC进行模糊测试之前，需要对目标进行检测。
+具体如何做并不重要。
+然而，SymCC编译器需要知道它应该检测的运行时间的位置。
+这可以通过将 <code>SYMCC_RUNTIME_DIR</code> 环境变量设置为包含运行时的目录来实现（通常是你的运行时板块的 <code>target/(debug|release)</code> 文件夹）。</p>
+<p>混合模糊器的例子在其 <a href="https://github.com/AFLplusplus/LibAFL/blob/main/fuzzers/libfuzzer_stb_image_concolic/fuzzer/build.rs#L50"><code>build.rs</code>构建脚本</a> 中检测目标。
+它通过克隆和构建SymCC的副本来实现，然后使用这个版本来检测目标。
+<a href="https://docs.rs/symcc_libafl"><code>symcc_libafl</code> crate</a> 包含用于克隆和构建SymCC的辅助函数。</p>
+<p>在尝试构建SymCC之前，请确保你满足SymCC的 <a href="https://github.com/eurecom-s3/symcc#readme">构建要求</a>。</p>
+<h4 id="使用symqemu"><a class="header" href="#使用symqemu">使用SymQEMU</a></h4>
+<p>根据SymQEMU的 <a href="https://github.com/eurecom-s3/symqemu#readme">构建说明</a> 来构建它。
+默认情况下，SymQEMU会在一个同级目录下寻找运行时。
+由于我们没有运行时，我们需要让它知道你的运行时的路径，将 <code>--symcc-build</code> 脚本的参数设置为你的运行时的路径。</p>
+<h3 id="构建模糊器"><a class="header" href="#构建模糊器">构建模糊器</a></h3>
+<p>无论采用哪种方法，现在模糊器和被检测目标之间的接口应该是一致的。
+使用SymCC和SymQEMU的唯一区别应该是代表目标的二进制文件。
+在SymCC的情况下，它将是用仪器构建的二进制文件，而在SymQEMU的情况下，它将是模拟器的二进制文件（例如：<code>x86_64-linux-user/symqemu-x86_64</code>），后面是你的非仪器化的目标二进制文件和论据。</p>
+<p>你可以使用 <a href="https://docs.rs/libafl/0.6.0/libafl/executors/command/struct.CommandExecutor.html"><code>CommandExecutor</code></a> 来执行你的目标（<a href="https://github.com/AFLplusplus/LibAFL/blob/main/fuzzers/libfuzzer_stb_image_concolic/fuzzer/src/main.rs#L244">example</a>）。
+在配置命令时，如果你的目标从文件中读取输入（而不是标准输入），请确保传递 <code>SYMCC_INPUT_FILE</code> 环境变量的输入文件路径。</p>
+<h4 id="序列化和解算"><a class="header" href="#序列化和解算">序列化和解算</a></h4>
+<p>虽然完全可以建立一个自定义的运行时，在目标进程的背景下执行混合模糊的求解步骤，但LibAFL协程跟踪支持的预期用途是使用 <a href="https://docs.rs/symcc_runtime/0.1/symcc_runtime/tracing/struct.TracingRuntime.html"><code>TracingRuntime</code></a> 对（过滤和预处理的）分支条件进行序列化。
+这个序列化的表述可以在模糊程序中被反序列化，以便使用 <a href="https://docs.rs/libafl/0.6.0/libafl/observers/concolic/struct.ConcolicObserver.html"><code>ConcolicObserver</code></a> 包裹在 <a href="https://docs.rs/libafl/0.6.0/libafl/stages/concolic/struct.ConcolicTracingStage.html"><code>ConcolicTracingStage</code></a> 中进行解决，它将在每个 <a href="https://docs.rs/libafl/0.6.0/libafl/corpus/testcase/struct.Testcase.html"><code>TestCase</code></a> 中附加一个 <a href="https://docs.rs/libafl/0.6.0/libafl/observers/concolic/struct.ConcolicMetadata.html"><code>ConcolicMetadata</code></a>。</p>
+<p><code>ConcolicMetadata'可以用来重放协程跟踪，并使用SMT-Solver进行解决。 然而，大多数涉及协程跟踪的用例都需要围绕他们想要解决的分支定义一些策略。 [</code>SimpleConcolicMutationalStage`](https://docs.rs/libafl/0.6.0//libafl/stages/concolic/struct.SimpleConcolicMutationalStage.html) 可用于测试目的。
+它将尝试解决所有分支，就像SymCC的原始简单后端一样，使用Z3。</p>
+<h3 id="示例"><a class="header" href="#示例">示例</a></h3>
+<p>这个例子说明了如何使用 <a href="https://github.com/AFLplusplus/LibAFL/blob/main/fuzzers/libfuzzer_stb_image_concolic/fuzzer/src/main.rs#L203"><code>ConcolicTracingStage</code>和<code>SimpleConcolicMutationalStage</code></a> 来建立一个基本的混合模糊器。</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../../advanced_features/advanced_features.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                            <a rel="next" href="../../advanced_features/no_std/no_std.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../../advanced_features/advanced_features.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                    <a rel="next" href="../../advanced_features/no_std/no_std.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        <script src="../../elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../searcher.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+    </body>
+</html>

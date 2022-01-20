@@ -1,0 +1,210 @@
+<!DOCTYPE HTML>
+<html lang="zh" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>生成实例 - LibAFL模糊测试库</title>
+        <!-- Custom HTML head -->
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../libafl.html">LibAFL模糊测试库</a></li><li class="chapter-item expanded affix "><a href="../introduction.html">简介</a></li><li class="chapter-item expanded "><a href="../getting_started/getting_started.html"><strong aria-hidden="true">1.</strong> 入门</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../getting_started/setup.html"><strong aria-hidden="true">1.1.</strong> 设置</a></li><li class="chapter-item expanded "><a href="../getting_started/build.html"><strong aria-hidden="true">1.2.</strong> 构建</a></li><li class="chapter-item expanded "><a href="../getting_started/crates.html"><strong aria-hidden="true">1.3.</strong> Crates</a></li></ol></li><li class="chapter-item expanded "><a href="../baby_fuzzer.html"><strong aria-hidden="true">2.</strong> 简单的模糊器实例</a></li><li class="chapter-item expanded "><a href="../core_concepts/core_concepts.html"><strong aria-hidden="true">3.</strong> 核心概念</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../core_concepts/observer.html"><strong aria-hidden="true">3.1.</strong> 观察者 Observer</a></li><li class="chapter-item expanded "><a href="../core_concepts/executor.html"><strong aria-hidden="true">3.2.</strong> 执行器 Executor</a></li><li class="chapter-item expanded "><a href="../core_concepts/feedback.html"><strong aria-hidden="true">3.3.</strong> 反馈 Feedback</a></li><li class="chapter-item expanded "><a href="../core_concepts/input.html"><strong aria-hidden="true">3.4.</strong> 输入 Input</a></li><li class="chapter-item expanded "><a href="../core_concepts/corpus.html"><strong aria-hidden="true">3.5.</strong> 语料库 Corpus</a></li><li class="chapter-item expanded "><a href="../core_concepts/mutator.html"><strong aria-hidden="true">3.6.</strong> 突变器 Mutator</a></li><li class="chapter-item expanded "><a href="../core_concepts/generator.html"><strong aria-hidden="true">3.7.</strong> 生成器 Generator</a></li><li class="chapter-item expanded "><a href="../core_concepts/stage.html"><strong aria-hidden="true">3.8.</strong> 阶段 Stage</a></li></ol></li><li class="chapter-item expanded "><a href="../design/design.html"><strong aria-hidden="true">4.</strong> 设计</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../design/architecture.html"><strong aria-hidden="true">4.1.</strong> 架构</a></li><li class="chapter-item expanded "><a href="../design/metadata.html"><strong aria-hidden="true">4.2.</strong> 元数据</a></li></ol></li><li class="chapter-item expanded "><a href="../message_passing/message_passing.html"><strong aria-hidden="true">5.</strong> 消息传递</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../message_passing/spawn_instances.html" class="active"><strong aria-hidden="true">5.1.</strong> 生成实例</a></li><li class="chapter-item expanded "><a href="../message_passing/configurations.html"><strong aria-hidden="true">5.2.</strong> 配置</a></li></ol></li><li class="chapter-item expanded "><a href="../tutorial/tutorial.html"><strong aria-hidden="true">6.</strong> 教程</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../tutorial/intro.html"><strong aria-hidden="true">6.1.</strong> 简介</a></li></ol></li><li class="chapter-item expanded "><a href="../advanced_features/advanced_features.html"><strong aria-hidden="true">7.</strong> 高级功能</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../advanced_features/concolic/concolic.html"><strong aria-hidden="true">7.1.</strong> 同心追踪和混合模糊</a></li><li class="chapter-item expanded "><a href="../advanced_features/no_std/no_std.html"><strong aria-hidden="true">7.2.</strong> LibAFL在 no_std 环境下（内核、管理程序...）</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">LibAFL模糊测试库</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="派生实例"><a class="header" href="#派生实例">派生实例</a></h1>
+<p>多个模糊器实例可以通过不同的方式产生。</p>
+<h2 id="手动通过一个tcp端口"><a class="header" href="#手动通过一个tcp端口">手动，通过一个TCP端口</a></h2>
+<p>做多线程的直接方法是使用<code>LlmpRestartingEventManager</code>，特别是使用<code>setup_restarting_mgr_std</code>。</p>
+<p>它抽象化了所有讨厌的细节，如崩溃处理时的重启（针对内存模糊器）和多线程。
+有了它，你手动启动的每个实例都会尝试连接到本地机器上的一个TCP端口。</p>
+<p>如果这个端口还没有被绑定，这个实例就会成为代理，它自己会绑定到这个端口以等待新的客户。</p>
+<p>如果该端口已经被绑定，EventManager将尝试连接到它。
+该实例成为客户端，现在可以与所有其他节点通信。</p>
+<p>手动启动节点的好处是，你可以有多个具有不同配置的节点，比如客户端在有ASAN和没有ASAN的情况下进行模糊处理。</p>
+<p>虽然它被称为 &quot;重启 &quot;管理器，但它在Unix操作系统上使用<code>fork</code>作为优化，在Windows上只实际从头开始重启。</p>
+<h2 id="launcher"><a class="header" href="#launcher">Launcher</a></h2>
+<p>启动器是lazy模式启动多线程。</p>
+<p>你可以使用<code>Launcher::builder</code>来创建一个产生多个节点的模糊器，所有这些节点都使用重新启动的事件管理器。</p>
+<p>看一个例子：</p>
+<pre><code class="language-rust ignore">    Launcher::builder()
+        .configuration(EventConfig::from_name(&amp;configuration))
+        .shmem_provider(shmem_provider)
+        .monitor(mon)
+        .run_client(&amp;mut run_client)
+        .cores(cores)
+        .broker_port(broker_port)
+        .stdout_file(stdout_file)
+        .remote_broker_addr(broker_addr)
+        .build()
+        .launch()
+</code></pre>
+<p>首先启动一个代理，然后根据传递给 <code>cores</code> 的值生成 <code>n</code> 个客户端。
+这个值是一个字符串，表示要绑定的核心，例如， <code>0,2,5</code> 或 <code>0-3</code> 。
+对于每个客户端，<code>run_client'将被调用。 在Windows上，启动器将重新启动每个客户端，而在Unix上，它将使用</code>fork`。</p>
+<h2 id="其他方式"><a class="header" href="#其他方式">其他方式</a></h2>
+<p>LlmpEvenManager系列是做产卵实例的最简单的方法，但对于不明显的目标，你可能需要想出其他的解决方案。</p>
+<p>LLMP甚至在理论上是 <code>no_std</code> 兼容的，甚至完全不同的EventManagers也可以用于消息传递。</p>
+<p>如果你遇到这种情况，请阅读当前的实现和/或与我们联系。</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../message_passing/message_passing.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                            <a rel="next" href="../message_passing/configurations.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../message_passing/message_passing.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                    <a rel="next" href="../message_passing/configurations.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        <script src="../elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../searcher.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+    </body>
+</html>
