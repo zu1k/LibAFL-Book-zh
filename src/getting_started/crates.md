@@ -1,7 +1,7 @@
 # Crates
 
 LibAFL 是由不同的 crate 组成的。
-crate 是 Rust 的 Cargo 构建系统中的一个独立的库，你可以通过把它添加到你的项目的 `Cargo.toml` 文件中来使用，比如:\r
+crate 是 Rust 的 Cargo 构建系统中的一个独立的库，你可以通过把它添加到你的项目的 `Cargo.toml` 文件中来使用，比如:
 
 ```toml
 [dependencies]
@@ -22,7 +22,7 @@ libafl = { version = "*" }
 
 - `std`: 启用代码中使用Rust标准库的部分。如果没有这个标志，LibAFL是 `no_std` 兼容的，这将禁用一系列功能，但允许我们在嵌入式环境中使用LibAFL，阅读 [no_std`部分](../advanced_features/no_std/no_std.md) 了解更多细节
 - `derive`: 可以使用 LibAFL 的 libafl_derive 中定义的 `derive(...)` 宏
-- `rand_trait`: 允许你在需要与Rust的 [`rand` crate](https://crates.io/crates/rand) 兼容的地方使用LibAFL的非常快速（*但不安全！*）的随机数发生器
+- `rand_trait`: 允许你在需要与Rust的 [`rand` crate](https://crates.io/crates/rand) 兼容的地方使用LibAFL的非常快速 (*但不安全！*) 的随机数发生器
 - `llmp_bind_public`: 使 LibAFL 的 LLMP 绑定到一个公共的TCP端口，其他的fuzzers节点可以通过这个端口与这个实例通信
 - `introspection`: 为LibAFL添加性能统计
 
@@ -47,10 +47,10 @@ sugar crate 抽离了 LibAFL API 的大部分复杂性。
 这个板块提供了与目标交互的代码，并对其进行检测。
 为了在编译时启用和禁用功能，使用功能标志来启用和禁用这些功能。
 
-目前，支持的标志有:\r
+目前，支持的标志有:
 
 - `pcguard_edges`: 定义了 SanitizerCoverage trace-pc-guard 钩子来跟踪 map 中的执行边
-- `pcguard_hitcounts`: 定义了 SanitizerCoverage trace-pc-guard 钩子，以追踪 map 中已执行的边和hitcounts（如AFL）
+- `pcguard_hitcounts`: 定义了 SanitizerCoverage trace-pc-guard 钩子，以追踪 map 中已执行的边和hitcounts (如AFL) 
 - `libfuzzer`: 提供了一个 libFuzzer 风格的兼容层
 - `value_profile`: 定义了 SanitizerCoverage trace-cmp 钩子，以跟踪 map 中每个比较的匹配位
 

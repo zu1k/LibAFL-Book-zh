@@ -32,8 +32,8 @@ The broker can also intercept and filter the messages it receives instead of for
 
 为了发送新消息，客户端在其共享内存的末端放置一个新消息，然后更新一个静态字段来通知代理。
 一旦传出的映射已满，发送者使用各自的`ShMemProvider'分配一个新的`ShMem'。
-然后，它使用页面结束（`EOP`）消息发送所需信息，将连接进程中新分配的页面映射到旧的页面。
-一旦接收者映射了新的页面，就把它标记为安全的，可以从发送进程中解除映射（如果我们在短时间内有超过一个EOP，就可以避免竞赛条件），然后继续从新的`ShMem`中读取。
+然后，它使用页面结束 (`EOP`) 消息发送所需信息，将连接进程中新分配的页面映射到旧的页面。
+一旦接收者映射了新的页面，就把它标记为安全的，可以从发送进程中解除映射 (如果我们在短时间内有超过一个EOP，就可以避免竞赛条件) ，然后继续从新的`ShMem`中读取。
 
 The schema for client's maps to the broker is as follows:
 ```text
@@ -49,9 +49,9 @@ The schema for client's maps to the broker is as follows:
 
 代理人在所有传入的 map 上循环，并检查新的消息。
 在`std`构建中，经纪人会在循环后睡眠几毫秒，因为我们不需要消息立即到达。
-在经纪人收到来自客户端N的新消息后，（`clientN_out->current_id != last_message->message_id`）经纪人会将消息内容复制到自己的广播共享内存。
+在经纪人收到来自客户端N的新消息后， (`clientN_out->current_id != last_message->message_id`) 经纪人会将消息内容复制到自己的广播共享内存。
 
-客户端定期地，例如在完成`n'次突变后，通过检查是否有新的消息进入（`current_broadcast_map->current_id != last_message->message_id`）。
+客户端定期地，例如在完成`n'次突变后，通过检查是否有新的消息进入 (`current_broadcast_map->current_id != last_message->message_id`) 。
 虽然经纪人使用相同的EOP机制为其传出的 map 映射新的`ShMem'，但它从不解除旧页面的映射。
 这种额外的内存开销有一个很好的目的: 通过保留所有的广播页面，我们确保新的客户可以在以后的时间点加入到模糊测试活动中来
 他们只需要从头到尾重新阅读所有广播的信息。
@@ -87,6 +87,6 @@ The schema for client's maps to the broker is as follows:
 对于broker2的通信，这个b2b客户端监听来自其他远程broker的TCP连接。
 它在任何时候都保持一个开放的套接字池，用于连接其他远程的b2b经纪商。
 当在本地经纪商共享内存中收到一个新消息时，b2b客户端将通过TCP将其转发给所有连接的远程经纪商。
-另外，经纪商可以从所有连接的（远程）经纪商那里接收消息，并通过客户端`ShMem`转发给本地经纪商。
+另外，经纪商可以从所有连接的 (远程) 经纪商那里接收消息，并通过客户端`ShMem`转发给本地经纪商。
 
 作为附带说明，用于b2b通信的tcp监听器也用于新客户试图连接到本地经纪商时的初始握手，简单地交换初始`ShMem`描述。

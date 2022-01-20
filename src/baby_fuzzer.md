@@ -37,7 +37,7 @@ edition = "2018"
 ```
 
 为了使用 LibAFl，我们必须在 `[dependencies]` 下增添其依赖 `libafl = { path = "path/to/libafl/" }`。
-如果你愿意，你可以使用 crates.io 的 LibAFL 版本，在这种情况下，你必须使用 `libafl = "*"` 来获取最新的版本（或者将其设置为当前版本）。
+如果你愿意，你可以使用 crates.io 的 LibAFL 版本，在这种情况下，你必须使用 `libafl = "*"` 来获取最新的版本 (或者将其设置为当前版本) 。
 
 由于我们要对Rust代码进行模糊处理，我们希望崩溃不会简单地导致程序退出，而是引发一个 `abort` ，然后可以被模糊器捕获。
 为此，我们在 [profiles](https://doc.rust-lang.org/cargo/reference/profiles.html) 中指定 `panic = "abort"`。
@@ -140,7 +140,7 @@ let scheduler = QueueCorpusScheduler::new();
 let mut fuzzer = StdFuzzer::new(scheduler, (), ());
 ```
 
-最后，我们需要一个 `Executor`，它是负责运行我们被测试程序的实体。在这个例子中，我们想在进程中运行 `harness` 函数（例如，不分叉出一个子程序），因此我们使用 `InProcessExecutor`。
+最后，我们需要一个 `Executor`，它是负责运行我们被测试程序的实体。在这个例子中，我们想在进程中运行 `harness` 函数 (例如，不 fork 出一个子程序) ，因此我们使用 `InProcessExecutor`。
 
 ```rust,ignore
 // Create the executor for an in-process function
@@ -155,7 +155,7 @@ let mut executor = InProcessExecutor::new(
 ```
 
 它需要一个 `harness`、`state` 和 事件管理器 的引用。我们将在后面讨论第二个参数。
-由于执行器期望线束返回一个 `ExitKind` 对象，我们在 `harness` 函数中添加 `ExitKind::Ok`。
+由于执行器期望约束函数返回一个 `ExitKind` 对象，我们在 `harness` 函数中添加 `ExitKind::Ok`。
 
 现在我们有4个主要的实体，可以运行我们的测试，但我们仍然不能生成测试案例。
 
@@ -265,7 +265,7 @@ let mut executor = InProcessExecutor::new(
 .expect("Failed to create the Executor".into());
 ```
 
-既然模糊器可以观察到哪个条件被满足，我们就需要一种方法，根据这种观察来评定一个输入是否有趣（即值得添加到语料库中）。这里有一个反馈的概念，反馈是状态的一部分，它提供了一种将输入及其相应的执行评为有趣的方式，在观察者中寻找信息。反馈可以在一个所谓的 `FeedbackState` 实例中保持到目前为止所看到的信息的累积状态，在我们的例子中，它保持了在以前的运行中满足的条件的集合。
+既然模糊器可以观察到哪个条件被满足，我们就需要一种方法，根据这种观察来评定一个输入是否有趣 (即值得添加到语料库中) 。这里有一个反馈的概念，反馈是状态的一部分，它提供了一种将输入及其相应的执行评为有趣的方式，在观察者中寻找信息。反馈可以在一个所谓的 `FeedbackState` 实例中保持到目前为止所看到的信息的累积状态，在我们的例子中，它保持了在以前的运行中满足的条件的集合。
 
 我们使用 `MaxMapFeedback`，这个反馈在 `MapObserver` 的 map 上实现了新奇的搜索。基本上，如果观察者的 map 中有一个值大于迄今为止为同一条目记录的最大值，它就会将该输入评为有趣的输入，并更新其状态。
 
@@ -317,7 +317,7 @@ let mut fuzzer = StdFuzzer::new(scheduler, feedback, objective);
 
 现在，在包括正确的 `use` 之后，我们可以运行这个程序了，但结果与之前的并没有什么不同，因为随机生成器并没有考虑到我们在语料库中保存的有趣内容。要做到这一点，我们需要插入一个 `Mutator`。
 
-LibAFL 的另一个核心组件是状态，它是对来自语料库的单个输入所做的动作。例如，`MutationalStage` 对输入进行变异，并多次执行。
+LibAFL 的另一个核心组件是状态，它是对来自语料库的单个输入所做的动作。例如，`MutationalStage` 对输入进行突变，并多次执行。
 
 作为最后一步，我们创建了一个突变状态，它使用了一个受 AFL 的 havoc 突变器启发的突变器。
 

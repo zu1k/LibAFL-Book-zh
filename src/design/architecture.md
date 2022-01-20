@@ -8,7 +8,7 @@ LibAFL的代码重用方式是基于组件而不是子类的，但库中仍有�
 
 考虑到类似的模糊器，你可以观察到大多数时候被修改的数据结构是与测试案例和模糊器全局状态有关的。
 
-除了之前描述的实体外，我们引入了[`Testcase`](https://docs.rs/libafl/0.6/libafl/corpus/testcase/struct.Testcase.html)和[`State`](https://docs.rs/libafl/0.6/libafl/state/struct.StdState.html)实体。测试案例是存储在语料库中的输入及其元数据的容器（因此，在实现中，语料库存储测试案例），状态包含在运行模糊器时演变的所有元数据，包括语料库。
+除了之前描述的实体外，我们引入了[`Testcase`](https://docs.rs/libafl/0.6/libafl/corpus/testcase/struct.Testcase.html)和[`State`](https://docs.rs/libafl/0.6/libafl/state/struct.StdState.html)实体。测试案例是存储在语料库中的输入及其元数据的容器 (因此，在实现中，语料库存储测试案例) ，状态包含在运行模糊器时演变的所有元数据，包括语料库。
 
 在实现中，状态只包含可序列化的自有对象，它本身也是可序列化的。有些模糊器可能希望在暂停时序列化其状态，或者在进行进程内模糊处理时，在崩溃时序列化，并在新进程中反序列化，以继续模糊处理，并保留所有元数据。
 

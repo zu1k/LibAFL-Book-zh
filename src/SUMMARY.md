@@ -19,7 +19,7 @@
   - [语料库 Corpus](./core_concepts/corpus.md)
   - [突变器 Mutator](./core_concepts/mutator.md)
   - [生成器 Generator](./core_concepts/generator.md)
-  - [状态 Stage](./core_concepts/stage.md)
+  - [阶段 Stage](./core_concepts/stage.md)
 
 - [设计](./design/design.md)
   - [架构](./design/architecture.md)
@@ -34,4 +34,4 @@
 
 - [高级功能](./advanced_features/advanced_features.md)
   - [同心追踪和混合模糊](./advanced_features/concolic/concolic.md)
-  - [LibAFL在 `no_std` 环境下（内核、管理程序...）](./advanced_features/no_std/no_std.md)
+  - [LibAFL在 `no_std` 环境下 (内核、管理程序...) ](./advanced_features/no_std/no_std.md)

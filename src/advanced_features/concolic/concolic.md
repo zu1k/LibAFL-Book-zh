@@ -26,7 +26,7 @@ fn target(input: &[u8]) -> i32 {
 一个简单的覆盖率最大化的模糊器在某种程度上随机地产生新的输入，将很难找到触发虚构的崩溃输入的一个输入。
 许多技术被提出来，以使模糊处理不那么随机，而是更直接地试图改变输入，以翻转特定的分支，例如参与崩溃上述程序的分支。
 
-并行追踪允许我们以 **分析的方式而不是** 随机的方式（即猜测）构建一个输入，以锻炼程序中的一个新路径（比如例子中的崩溃路径）。
+并行追踪允许我们以 **分析的方式而不是** 随机的方式 (即猜测) 构建一个输入，以锻炼程序中的一个新路径 (比如例子中的崩溃路径) 。
 原则上，协程跟踪的工作方式是观察程序执行过程中所有依赖输入的执行指令。
 为了理解这一点，我们将以上述程序为例进行说明。
 
@@ -82,7 +82,7 @@ Branch { // if input.len() == 0
 
 利用这个跟踪，我们可以很容易地推断出，我们可以通过一个长度为4的输入或者一个非零长度的输入来迫使程序采取不同的路径。
 我们通过否定每个分支条件并分析解决所产生的 "表达式 "来做到这一点。
-事实上，我们可以为任何计算创建这些表达式，并把它们交给 [SMT](https://en.wikipedia.org/wiki/Satisfiability_modulo_theories)-Solver，它将生成一个满足表达式的输入（只要这种输入存在）。
+事实上，我们可以为任何计算创建这些表达式，并把它们交给 [SMT](https://en.wikipedia.org/wiki/Satisfiability_modulo_theories)-Solver，它将生成一个满足表达式的输入 (只要这种输入存在) 。
 
 在混合模糊计算中，我们将这种追踪+求解的方法与更传统的模糊计算技术相结合。
 
@@ -95,12 +95,12 @@ SymCC将对编译后的代码进行回调，使之成为一个可以由用户提
 
 ### SymCC和它的运行时
 
-SymCC有两个运行时:\r
+SymCC有两个运行时:
 
  * 一个 "简单的 "运行时，它试图用 [Z3](https://github.com/Z3Prover/z3/wiki) 来解决它遇到的任何分支，以及
  * 一个基于 [QSym](https://github.com/sslab-gatech/qsym) 的运行时，它对表达式进行了更多的过滤，也使用Z3进行求解。
 
-然而，与LibAFL的集成需要你使用 [`symcc_runtime`](https://docs.rs/symcc_runtime/0.1/symcc_runtime) crate进行 **BYORT**（_bring your own runtime_）。
+然而，与LibAFL的集成需要你使用 [`symcc_runtime`](https://docs.rs/symcc_runtime/0.1/symcc_runtime) crate进行 **BYORT** (_bring your own runtime_) 。
 这个工具箱允许你轻松地从内置的构建模块中建立一个自定义的运行时，或者以完全的灵活性创建全新的运行时。
 查看 `symcc_runtime` 文档，了解更多关于如何建立你自己的运行时的信息。
 
@@ -108,7 +108,7 @@ SymCC有两个运行时:\r
 
 [SymQEMU](https://github.com/eurecom-s3/symqemu) 是SymCC的一个兄弟项目。
 它不是在编译时对目标进行检测，而是通过动态二进制翻译插入检测，建立在 [`QEMU`](https://www.qemu.org) 仿真栈之上。
-这意味着使用SymQEMU，任何（x86）二进制文件都可以被追踪，而不需要提前建立插桩。
+这意味着使用SymQEMU，任何 (x86) 二进制文件都可以被追踪，而不需要提前建立插桩。
 `symcc_runtime` 工具箱支持这种使用情况，用 `symcc_runtime` 构建的运行时也可用于SymQEMU。
 
 ## LibAFL中的混合型模糊处理
@@ -144,7 +144,7 @@ LibAFL资源库中包含了一个[混合模糊器实例](https://github.com/AFLp
 在使用SymCC进行模糊测试之前，需要对目标进行检测。
 具体如何做并不重要。
 然而，SymCC编译器需要知道它应该检测的运行时间的位置。
-这可以通过将 `SYMCC_RUNTIME_DIR` 环境变量设置为包含运行时的目录来实现（通常是你的运行时板块的 `target/(debug|release)` 文件夹）。
+这可以通过将 `SYMCC_RUNTIME_DIR` 环境变量设置为包含运行时的目录来实现 (通常是你的运行时板块的 `target/(debug|release)` 文件夹) 。
 
 混合模糊器的例子在其 [`build.rs`构建脚本](https://github.com/AFLplusplus/LibAFL/blob/main/fuzzers/libfuzzer_stb_image_concolic/fuzzer/build.rs#L50) 中检测目标。
 它通过克隆和构建SymCC的副本来实现，然后使用这个版本来检测目标。
@@ -162,14 +162,14 @@ LibAFL资源库中包含了一个[混合模糊器实例](https://github.com/AFLp
 
 无论采用哪种方法，现在模糊器和被检测目标之间的接口应该是一致的。
 使用SymCC和SymQEMU的唯一区别应该是代表目标的二进制文件。
-在SymCC的情况下，它将是用插桩构建的二进制文件，而在SymQEMU的情况下，它将是模拟器的二进制文件（例如: `x86_64-linux-user/symqemu-x86_64`），后面是你的非插桩化的目标二进制文件和论据。
+在SymCC的情况下，它将是用插桩构建的二进制文件，而在SymQEMU的情况下，它将是模拟器的二进制文件 (例如: `x86_64-linux-user/symqemu-x86_64`) ，后面是你的非插桩化的目标二进制文件和论据。
 
-你可以使用 [`CommandExecutor`](https://docs.rs/libafl/0.6.0/libafl/executors/command/struct.CommandExecutor.html) 来执行你的目标（[example](https://github.com/AFLplusplus/LibAFL/blob/main/fuzzers/libfuzzer_stb_image_concolic/fuzzer/src/main.rs#L244)）。
-在配置命令时，如果你的目标从文件中读取输入（而不是标准输入），请确保传递 `SYMCC_INPUT_FILE` 环境变量的输入文件路径。
+你可以使用 [`CommandExecutor`](https://docs.rs/libafl/0.6.0/libafl/executors/command/struct.CommandExecutor.html) 来执行你的目标 ([example](https://github.com/AFLplusplus/LibAFL/blob/main/fuzzers/libfuzzer_stb_image_concolic/fuzzer/src/main.rs#L244)) 。
+在配置命令时，如果你的目标从文件中读取输入 (而不是标准输入) ，请确保传递 `SYMCC_INPUT_FILE` 环境变量的输入文件路径。
 
 #### 序列化和解算
 
-虽然完全可以建立一个自定义的运行时，在目标进程的背景下执行混合模糊的求解步骤，但LibAFL协程跟踪支持的预期用途是使用 [`TracingRuntime`](https://docs.rs/symcc_runtime/0.1/symcc_runtime/tracing/struct.TracingRuntime.html) 对（过滤和预处理的）分支条件进行序列化。
+虽然完全可以建立一个自定义的运行时，在目标进程的背景下执行混合模糊的求解步骤，但LibAFL协程跟踪支持的预期用途是使用 [`TracingRuntime`](https://docs.rs/symcc_runtime/0.1/symcc_runtime/tracing/struct.TracingRuntime.html) 对 (过滤和预处理的) 分支条件进行序列化。
 这个序列化的表述可以在模糊程序中被反序列化，以便使用 [`ConcolicObserver`](https://docs.rs/libafl/0.6.0/libafl/observers/concolic/struct.ConcolicObserver.html) 包裹在 [`ConcolicTracingStage`](https://docs.rs/libafl/0.6.0/libafl/stages/concolic/struct.ConcolicTracingStage.html) 中进行解决，它将在每个 [`TestCase`](https://docs.rs/libafl/0.6.0/libafl/corpus/testcase/struct.Testcase.html) 中附加一个 [`ConcolicMetadata`](https://docs.rs/libafl/0.6.0/libafl/observers/concolic/struct.ConcolicMetadata.html)。
 
 `ConcolicMetadata'可以用来重放协程跟踪，并使用SMT-Solver进行解决。
