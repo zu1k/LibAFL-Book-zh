@@ -146,33 +146,26 @@
 <p>本书的简体中文版本由 <a href="https://github.com/zu1k">zu1k</a> 翻译，HTML 版本可在 <a href="https://libafl-book-zh.lgf.im">https://libafl-book-zh.lgf.im</a> 在线获取，仓库 <a href="https://github.com/zu1k/libafl-book-zh">zu1k/libafl-book-zh</a>，当前查看版本对应英文原版 <a href="https://github.com/AFLplusplus/LibAFL/tree/4f6f76e85710d3d8d3fd7bea49e2c3f3b152b0e9">4f6f76e</a>。</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="简介"><a class="header" href="#简介">简介</a></h1>
 <p>模糊器是安全研究人员和开发人员的重要工具。
-一系列最先进的工具，如 <a href="https://github.com/AFLplusplus/AFLplusplus">AFL++</a> 、 <a href="https://llvm.org/docs/LibFuzzer.html">libFuzzer</a> 或 <a href="https://github.com/google/honggfuzz">honggfuzz</a> 都可供用户使用。它们以一种非常有效的方式完成它们的工作，发现成千上万的bug。</p>
-<p>然而，从一个高级用户的角度来看，这些工具是有限的。
-它们的设计并没有把可扩展性作为第一等公民。
-通常情况下，模糊器开发者可以选择分叉这些现有的工具之一，或者从头开始创建一个新的模糊器。
-在任何情况下，研究人员最终都会有大量的模糊器，它们都是互不兼容的。
-他们出色的功能不能仅仅为新的项目进行组合。
-通过一次又一次地重新发明轮子，我们可能完全错过了那些复杂的重新实现的功能。</p>
-<p>为了解决这个问题，我们创建了LibAFL，这是一个库，它不只是另一个模糊器，而是一个可重复使用的个体模糊器的集合。
+一系列最先进的工具，如 <a href="https://github.com/AFLplusplus/AFLplusplus">AFL++</a>、<a href="https://llvm.org/docs/LibFuzzer.html">libFuzzer</a> 或 <a href="https://github.com/google/honggfuzz">honggfuzz</a> 都可供用户使用。它们以一种非常有效的方式完成它们的工作，发现成千上万的bug。</p>
+<p>然而，从一个高级用户的角度来看，这些工具是有限的，它们的设计并没有把可扩展性作为第一等公民。
+通常情况下，模糊器开发者可以选择 Fork 这些现有的工具，或者从头开始创建一个新的模糊器。在这些情况下，研究人员最终得到有大量的模糊器，它们之间互不兼容，其先进的部分进能够被其自己使用。
+在这个过程中，需要一遍又一遍的重新发明轮子，而这些过程完全可以被避免。</p>
+<p>为了解决这个问题，我们创建了LibAFL，这是一个库，它不只是一个模糊器，而是一个可重复使用的个体模糊器的集合。
 LibAFL是用Rust编写的，它可以帮助你开发一个为你的特定需求而定制的模糊器。
-无论是一个特定的目标，一个特定的仪器后端，还是一个自定义的突变器，你都可以利用现有的碎片来制作你能想到的最快、最有效的模糊器。</p>
+无论是一个特定的目标，一个特定的插桩后端，还是一个自定义的突变器，你都可以利用现有的碎片来制作你能想到的最快、最有效的模糊器。</p>
 <h2 id="为什么使用-libafl"><a class="header" href="#为什么使用-libafl">为什么使用 LibAFL?</a></h2>
 <p>LibAFL为你提供了许多现成的模糊器的优点，同时又是完全可定制的。</p>
 <p>目前的一些亮点功能包括：</p>
 <ul>
-<li><code>多平台</code>：LibAFL几乎可以在任何你能找到Rust编译器的地方工作。我们已经在 <em>Windows</em> 、 <em>Android</em> 、 <em>MacOS</em> 和 <em>Linux</em> 上使用了它，在 <em>x86_64</em>、<em>aarch64</em> 上使用。</li>
-<li><code>可移植</code>：<code>LibAFL</code> 可以在 <code>no_std</code> 模式下构建。
-这意味着它不需要一个特定的依赖操作系统的运行时间来运作。
-定义一个分配器和映射页面的方法，你就可以把LibAFL注入到不知名的目标中，如嵌入式设备、管理程序，甚至可能是WebAssembly？</li>
-<li><code>可定制性</code>：鉴于多年来对 <em>AFLplusplus</em> 的微调经验和我们的学术模糊背景，我们可以将最近的模糊趋势纳入LibAFL的设计中，使其面向未来。
-举个例子，相对于老式的模糊器， <code>BytesInput</code> 只是输入的潜在形式之一。
-你可以自由地使用和修改抽象语法树，以实现结构化的模糊处理。</li>
-<li><code>可扩展</code>：作为LibAFL的一部分，我们开发了 <code>低水平消息传递</code> ，简称 <code>LLMP</code> ，它允许LibAFL在核心上几乎线性扩展。也就是说，如果你选择使用这个功能--毕竟这是你的模糊器。
-使用LLMP的 <code>broker2broker</code> 功能，通过TCP扩展到多台机器也是可能的。</li>
-<li><code>快速</code>：我们在编译时尽一切努力，使运行时的开销尽可能小。</li>
-<li><code>任何目标</code>：我们支持纯二进制模式，如QEMU-Mode和Frida-Mode与ASAN和CmpLog，以及基于资源的仪器的多个编译通道。
-当然，我们也支持自定义插桩，正如你在基于谷歌Atheris的Python例子中看到的那样。</li>
-<li><code>可用性</code>：这个问题由你来决定。尽情发挥吧!</li>
+<li><strong>多平台</strong>：LibAFL 几乎可以在任何 Rust编译器 支持的地平台工作，我们已经在 <em>Windows</em>、<em>Android</em>、<em>MacOS</em> 和 <em>Linux</em> 上使用，在 <em>x86_64</em>、<em>aarch64</em> 上使用</li>
+<li><strong>移植性</strong>：LibAFL 可以在 <code>no_std</code> 模式下构建，这意味着它不需要依赖特定的操作系统。通过定义一个分配器和映射页面的方法，你可以把LibAFL注入到其他目标平台，如嵌入式设备、管理程序，甚至可能是WebAssembly</li>
+<li><strong>适应性</strong>：鉴于多年来对 <em>AFLplusplus</em> 的开发经验和我们对模糊测试的学术背景，我们可以将最近的模糊测试发展趋势融入到LibAFL的设计中，使其面向未来。
+举个例子，相对于老式的模糊器， <code>BytesInput</code> 只是输入的潜在形式之一，你可以自由地使用和修改抽象语法树，以实现结构化的模糊处理。</li>
+<li><strong>扩展性</strong>：作为LibAFL的一部分，我们开发了 <code>低水平消息传递</code> ，简称 <code>LLMP</code> ，它允许LibAFL在核心上几乎线性扩展。也就是说，如果你选择使用这个功能--毕竟这是你的模糊器。
+使用LLMP的 <code>broker2broker</code> 功能，通过TCP扩展到多台机器也是可能的</li>
+<li><strong>快速</strong>：我们在编译时尽一切努力，使运行时的开销尽可能小</li>
+<li><strong>任何目标</strong>：我们支持纯二进制模式，如 <strong>QEMU-Mode</strong>、<strong>Frida-Mode</strong>、<strong>ASAN</strong>、<strong>CmpLog</strong>，以及基于资源的插桩的多个编译通道。当然，我们也支持自定义插桩，正如你在基于谷歌Atheris的Python例子中看到的那样</li>
+<li><strong>可用性</strong>：这个问题由你来决定。尽情发挥吧!</li>
 </ul>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="入门"><a class="header" href="#入门">入门</a></h1>
 <p>要开始使用LibAFL，有一些初始步骤要做。
@@ -202,7 +195,7 @@ $ ls LibAFL-main # this is the extracted folder
 虽然大部分代码都是纯Rust语言，但我们仍然需要一个C语言编译器，因为稳定的Rust仍然不支持LibAFL某些部分可能需要的功能，比如弱连接，以及LLVM内置链接。
 对于这些部分，我们使用C语言来向我们的Rust代码库暴露缺少的功能。</p>
 <p>此外，如果你想对C/C++应用程序进行源码级模糊测试。
-你可能需要Clang及其仪器选项来编译被测程序。
+你可能需要Clang及其插桩选项来编译被测程序。
 被测试的程序。</p>
 <p>在Linux上，你可以使用你的发行版的软件包管理器来获取Clang。
 但这些软件包并不总是最新的。
@@ -230,7 +223,7 @@ $ ls LibAFL-main # this is the extracted folder
 <p>对于有经验的rustaceans来说，最好的起点是阅读并改编示例模糊器。</p>
 <p>我们将这些模糊程序放在LibAFL资源库的<a href="https://github.com/AFLplusplus/LibAFL/tree/main/fuzzers"><code>./fuzzers</code></a>目录下。
 该目录包含一组不属于工作区的板条箱。</p>
-<p>这些示例模糊器中的每一个都使用了 LibAFL 的特定功能，有时与不同的仪器后端相结合（例如 <a href="https://clang.llvm.org/docs/SanitizerCoverage.html">SanitizerCoverage</a>, <a href="https://frida.re/">Frida</a>, ...）。</p>
+<p>这些示例模糊器中的每一个都使用了 LibAFL 的特定功能，有时与不同的插桩后端相结合（例如 <a href="https://clang.llvm.org/docs/SanitizerCoverage.html">SanitizerCoverage</a>, <a href="https://frida.re/">Frida</a>, ...）。</p>
 <p>你可以使用这些箱子作为例子，并作为具有类似功能集的自定义模糊器的骨架。
 每个模糊器的目录中都有一个<code>README.md</code>文件，描述模糊器及其特性。</p>
 <p>要建立一个例子的模糊器，你必须从其各自的文件夹（<code>fuzzers/[FUZZER_NAME]</code>）调用<code>cargo build --release</code>。</p>
@@ -280,13 +273,13 @@ libafl = { version = &quot;*&quot; }
 <p>目前，只有Clang编译器被支持。
 为了更深入地了解它，请看一下教程和例子。</p>
 <h3 id="libafl_frida"><a class="header" href="#libafl_frida">libafl_frida</a></h3>
-<p>这个库将LibAFL与Frida作为仪器分析的后端连接起来。</p>
+<p>这个库将LibAFL与Frida作为插桩分析的后端连接起来。</p>
 <p>有了这个库，你就可以对Linux/MacOS/Windows/Android上的目标进行覆盖率采集。</p>
-<p>此外，它还支持CmpLog和AddressSanitizer仪器和aarch64的运行时间。</p>
+<p>此外，它还支持CmpLog和AddressSanitizer插桩和aarch64的运行时间。</p>
 <h3 id="libafl_qemu"><a class="header" href="#libafl_qemu">libafl_qemu</a></h3>
 <p>这个库将LibAFL与QEMU用户模式连接起来，以模糊ELF跨平台二进制文件。</p>
 <p>它可以在Linux上工作，并且可以在没有碰撞的情况下收集边缘覆盖率!
-它还支持大量的钩子和仪器选项。</p>
+它还支持大量的钩子和插桩选项。</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="一个简单的libafl模糊器"><a class="header" href="#一个简单的libafl模糊器">一个简单的LibAFL模糊器</a></h1>
 <p>本章讨论了一个使用LibAFL API的天真无邪的模糊器。
 你将学习基本的实体，如 &quot;State&quot;、&quot;Observer &quot;和 &quot;Executor&quot;。
@@ -457,7 +450,7 @@ use libafl::{
 <p>现在我们想把我们的简单模糊器变成一个基于反馈的模糊器，增加产生正确的输入来触发恐慌的机会。我们将根据达到恐慌所需的3个条件来实现一个简单的反馈。</p>
 <p>要做到这一点，我们需要一种方法来跟踪一个条件是否被满足。为模糊器提供模糊运行属性信息的组件，即我们案例中的满足条件，是观察者。我们使用 <code>StdMapObserver</code> ，这是一个默认的观察者，它使用一个地图来跟踪覆盖的元素。在我们的模糊器中，每个条件都被映射到这种地图的一个条目。</p>
 <p>我们将这样的地图表示为一个 <code>静态突变</code> 变量。
-由于我们不依赖于任何仪器化引擎，我们必须手动跟踪地图中被测试函数的满足条件。</p>
+由于我们不依赖于任何插桩化引擎，我们必须手动跟踪地图中被测试函数的满足条件。</p>
 <pre><pre class="playground"><code class="language-rust">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
@@ -945,7 +938,7 @@ SymCC将对编译后的代码进行回调，使之成为一个可以由用户提
 <h3 id="symqemu"><a class="header" href="#symqemu">SymQEMU</a></h3>
 <p><a href="https://github.com/eurecom-s3/symqemu">SymQEMU</a> 是SymCC的一个兄弟项目。
 它不是在编译时对目标进行检测，而是通过动态二进制翻译插入检测，建立在 <a href="https://www.qemu.org"><code>QEMU</code></a> 仿真栈之上。
-这意味着使用SymQEMU，任何（x86）二进制文件都可以被追踪，而不需要提前建立仪器。
+这意味着使用SymQEMU，任何（x86）二进制文件都可以被追踪，而不需要提前建立插桩。
 <code>symcc_runtime</code> 工具箱支持这种使用情况，用 <code>symcc_runtime</code> 构建的运行时也可用于SymQEMU。</p>
 <h2 id="libafl中的混合型模糊处理"><a class="header" href="#libafl中的混合型模糊处理">LibAFL中的混合型模糊处理</a></h2>
 <p>LibAFL资源库中包含了一个<a href="https://github.com/AFLplusplus/LibAFL/tree/main/fuzzers/libfuzzer_stb_image_concolic">混合模糊器实例</a>。</p>
@@ -956,7 +949,7 @@ SymCC将对编译后的代码进行回调，使之成为一个可以由用户提
 <li>构建模糊器。</li>
 </ol>
 <p>请注意，这些步骤的顺序是很重要的。
-例如，在用SymCC进行仪器分析之前，我们需要先准备好运行时间。</p>
+例如，在用SymCC进行插桩分析之前，我们需要先准备好运行时间。</p>
 <h3 id="建立一个运行时"><a class="header" href="#建立一个运行时">建立一个运行时</a></h3>
 <p>使用<code>symcc_runtime</code>板块可以很容易地构建一个自定义运行时。
 注意，自定义运行时是一个单独的共享对象文件，这意味着我们需要一个单独的crate用于我们的运行时。
@@ -964,10 +957,10 @@ SymCC将对编译后的代码进行回调，使之成为一个可以由用户提
 <h3 id="工具化"><a class="header" href="#工具化">工具化</a></h3>
 <p>在LibAFL中，有两种主要的工具化方法来使用协程跟踪。</p>
 <ul>
-<li>使用<strong>编译时</strong>仪器化的目标与<strong>SymCC</strong>。
+<li>使用<strong>编译时</strong>插桩化的目标与<strong>SymCC</strong>。
 这只有在目标的源代码可用，并且目标很容易使用SymCC编译器包装器构建的情况下才有效。</li>
 <li>使用<strong>SymQEMU</strong>在**运行时动态地检测目标。
-这避免了一个单独的仪器化目标与协程跟踪仪器化，而且不需要源代码。
+这避免了一个单独的插桩化目标与协程跟踪插桩化，而且不需要源代码。
 然而，应该注意的是，生成的表达式的 &quot;质量 &quot;可能会大大降低，而且SymQEMU通常比SymCC生成的表达式要多得多，而且明显更曲折。
 因此，建议尽可能使用SymCC而不是SymQEMU。</li>
 </ul>
@@ -987,7 +980,7 @@ SymCC将对编译后的代码进行回调，使之成为一个可以由用户提
 <h3 id="构建模糊器"><a class="header" href="#构建模糊器">构建模糊器</a></h3>
 <p>无论采用哪种方法，现在模糊器和被检测目标之间的接口应该是一致的。
 使用SymCC和SymQEMU的唯一区别应该是代表目标的二进制文件。
-在SymCC的情况下，它将是用仪器构建的二进制文件，而在SymQEMU的情况下，它将是模拟器的二进制文件（例如：<code>x86_64-linux-user/symqemu-x86_64</code>），后面是你的非仪器化的目标二进制文件和论据。</p>
+在SymCC的情况下，它将是用插桩构建的二进制文件，而在SymQEMU的情况下，它将是模拟器的二进制文件（例如：<code>x86_64-linux-user/symqemu-x86_64</code>），后面是你的非插桩化的目标二进制文件和论据。</p>
 <p>你可以使用 <a href="https://docs.rs/libafl/0.6.0/libafl/executors/command/struct.CommandExecutor.html"><code>CommandExecutor</code></a> 来执行你的目标（<a href="https://github.com/AFLplusplus/LibAFL/blob/main/fuzzers/libfuzzer_stb_image_concolic/fuzzer/src/main.rs#L244">example</a>）。
 在配置命令时，如果你的目标从文件中读取输入（而不是标准输入），请确保传递 <code>SYMCC_INPUT_FILE</code> 环境变量的输入文件路径。</p>
 <h4 id="序列化和解算"><a class="header" href="#序列化和解算">序列化和解算</a></h4>

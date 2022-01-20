@@ -147,7 +147,7 @@
 <p>对于有经验的rustaceans来说，最好的起点是阅读并改编示例模糊器。</p>
 <p>我们将这些模糊程序放在LibAFL资源库的<a href="https://github.com/AFLplusplus/LibAFL/tree/main/fuzzers"><code>./fuzzers</code></a>目录下。
 该目录包含一组不属于工作区的板条箱。</p>
-<p>这些示例模糊器中的每一个都使用了 LibAFL 的特定功能，有时与不同的仪器后端相结合（例如 <a href="https://clang.llvm.org/docs/SanitizerCoverage.html">SanitizerCoverage</a>, <a href="https://frida.re/">Frida</a>, ...）。</p>
+<p>这些示例模糊器中的每一个都使用了 LibAFL 的特定功能，有时与不同的插桩后端相结合（例如 <a href="https://clang.llvm.org/docs/SanitizerCoverage.html">SanitizerCoverage</a>, <a href="https://frida.re/">Frida</a>, ...）。</p>
 <p>你可以使用这些箱子作为例子，并作为具有类似功能集的自定义模糊器的骨架。
 每个模糊器的目录中都有一个<code>README.md</code>文件，描述模糊器及其特性。</p>
 <p>要建立一个例子的模糊器，你必须从其各自的文件夹（<code>fuzzers/[FUZZER_NAME]</code>）调用<code>cargo build --release</code>。</p>
