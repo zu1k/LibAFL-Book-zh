@@ -1,13 +1,19 @@
-# LibAFL Documentation Book
+# LibAFL 文档书
 
-This project contains the out-of-source LibAFL documentation as a book.
+这个项目作为一本书，包含了 LibAFL 源码以外的文档。
 
-Here you can find tutorials, examples, and detailed explanations.
+在这里你可以找到教程、例子和详细的解释。
 
-For the API documentation instead, run `cargo doc` in the LibAFl root folder.
+要想获得API文档，请在 LibAFl 根目录下运行 `cargo doc`。
 
-## Usage
+## 使用方法
 
-To build this book, you need [mdBook](https://github.com/rust-lang/mdBook).
+要构建这本书，你需要 [mdBook](https://github.com/rust-lang/mdBook)。
 
-`mdbook build` to build, `mdbook serve` to serve the book locally.
+`mdbook build` 来构建，`mdbook serve` 来在本地提供本书。
+
+## 说明
+
+本书由 [zu1k](https://github.com/zu1k) 翻译，HTML 版本可在 [https://libafl-book-zh.lgf.im](https://libafl-book-zh.lgf.im) 在线获取
+
+本书内容的版权由 [LibAFL](https://github.com/AFLplusplus/LibAFL) 的作者持有
