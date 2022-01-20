@@ -26,7 +26,7 @@
   - [元数据](./design/metadata.md)
 
 - [消息传递](./message_passing/message_passing.md)
-  - [生成实例](./message_passing/spawn_instances.md)
+  - [派生实例](./message_passing/spawn_instances.md)
   - [配置](./message_passing/configurations.md)
 
 - [教程](./tutorial/tutorial.md)
