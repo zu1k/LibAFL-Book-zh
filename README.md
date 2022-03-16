@@ -14,7 +14,7 @@
 
 ## 说明
 
-本书由 [zu1k](https://github.com/zu1k) 翻译，HTML 版本可在 [https://libafl-book-zh.lgf.im](https://libafl-book-zh.lgf.im) 在线获取
+本书由 [zu1k](https://github.com/zu1k) 翻译，HTML 版本可在 [https://libafl-book-zh.zu1k.com](https://libafl-book-zh.zu1k.com) 在线获取
 
 本书对应英文原版 [4f6f76e](https://github.com/AFLplusplus/LibAFL/tree/4f6f76e85710d3d8d3fd7bea49e2c3f3b152b0e9)，不保证后续的更新，相信读者深入学习LibAFL后可不借助翻译阅读英文文档。
 
