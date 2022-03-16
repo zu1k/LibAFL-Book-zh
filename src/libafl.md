@@ -14,4 +14,4 @@
 
 使用这个文件夹中的 `mdbook build` 来构建它，或者运行 `mdbook serve` 来查看该书。
 
-本书的简体中文版本由 [zu1k](https://github.com/zu1k) 翻译(借助DeepL翻译引擎)，HTML 版本可在 [https://libafl-book-zh.lgf.im](https://libafl-book-zh.lgf.im) 在线获取，仓库 [zu1k/libafl-book-zh](https://github.com/zu1k/libafl-book-zh)，当前查看版本对应英文原版 [4f6f76e](https://github.com/AFLplusplus/LibAFL/tree/4f6f76e85710d3d8d3fd7bea49e2c3f3b152b0e9)。
+本书的简体中文版本由 [zu1k](https://github.com/zu1k) 翻译(借助DeepL翻译引擎)，HTML 版本可在 [https://libafl-book-zh.zu1k.com](https://libafl-book-zh.zu1k.com) 在线获取，仓库 [zu1k/libafl-book-zh](https://github.com/zu1k/libafl-book-zh)，当前查看版本对应英文原版 [4f6f76e](https://github.com/AFLplusplus/LibAFL/tree/4f6f76e85710d3d8d3fd7bea49e2c3f3b152b0e9)。
